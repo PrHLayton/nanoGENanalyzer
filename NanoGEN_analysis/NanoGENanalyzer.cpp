@@ -47,7 +47,7 @@ void NanoGENanalyzer::Loop()
    // const float xSec = 35.8253;
    // sumOf_genWeights_beforeAnalysis = 1.94133e+08 ;
 
-   TFile* fOutput = new TFile("output/cutOnDeltaR0p4/GENlevel/output_MG5sample_ST_t_channel_top_and_antitop_SM_atLO_LHE_NanoGEN_dim6top_model.root","RECREATE");
+   TFile* fOutput = new TFile("output/testing/output_MG5sample_ST_t_channel_top_and_antitop_SM_atLO_LHE_NanoGEN_dim6top_model.root","RECREATE");
    const float xSec = 35.4209;
    // sumOf_genWeights_beforeAnalysis = 1.75335e+08;
 

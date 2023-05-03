@@ -1,0 +1,9 @@
+*.json
+
+/graveyard/*
+/NanoGEN_Production/*
+/NanoGEN_Skimer/*
+
+*.root
+*.png
+*.pdf
