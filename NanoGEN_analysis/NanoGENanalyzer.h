@@ -951,7 +951,7 @@ double calculate_sinTheta(TLorentzVector Wboson, TLorentzVector top, TLorentzVec
 double calculate_cosThetaZ(TLorentzVector Wboson, TLorentzVector top, TLorentzVector qSpec)
 {
 
-    double cosTheta;
+    double cosThetaZ;
 
    TVector3 InvariantTopBoost;
    InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
@@ -985,19 +985,19 @@ double calculate_sinThetaStar(TLorentzVector lepton, TLorentzVector Wboson)
 
 double calculate_cosThetaZStar(TLorentzVector lepton, TLorentzVector Wboson)
 {
-   double cosThetaStar;
+   double cosThetaZStar;
 
    TVector3 Zdir = Wboson.Vect().Unit();
    TVector3 leptonUnitary = lepton.Vect().Unit();
 
-   cosThetaStar = leptonUnitary.Dot(Zdir);
+   cosThetaZStar = leptonUnitary.Dot(Zdir);
 
    return cosThetaZStar;
 }
 
 double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector Wboson)
 {
-   double cosThetaStar;
+   double cosThetaXStar;
 
    TVector3 Zdir = Wboson.Vect().Unit();
    TVector3 qSpecUnit = qSpec.Vect().Unit();
@@ -1005,14 +1005,14 @@ double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector Wboson)
    TVector3 Xdir = Ydir.Cross(Zdir);
    TVector3 leptonUnitary = lepton.Vect().Unit();
 
-   cosThetaStar = leptonUnitary.Dot(Xdir);
+   cosThetaXStar = leptonUnitary.Dot(Xdir);
 
    return cosThetaXStar;
 }
 
 double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector Wboson)
 {
-   double cosThetaStar;
+   double cosThetaYStar;
 
    TVector3 Zdir = Wboson.Vect().Unit();
    TVector3 qSpecUnit = qSpec.Vect().Unit();
@@ -1020,7 +1020,7 @@ double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector Wboson)
    TVector3 Xdir = Ydir.Cross(Zdir);
    TVector3 leptonUnitary = lepton.Vect().Unit();
 
-   cosThetaStar = leptonUnitary.Dot(Ydir);
+   cosThetaYStar = leptonUnitary.Dot(Ydir);
 
    return cosThetaYStar;
 }
