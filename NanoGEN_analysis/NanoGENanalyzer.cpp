@@ -452,7 +452,7 @@ void NanoGENanalyzer::Loop()
          SolutionNature = 1;
          // std::cout<<"real solution"<<std::endl;
          sinTheta_Real = calculate_sinTheta(Wboson, top, qSpec);
-         cosThetaX_Real = calculate_cosThetaX(Wboson, top, qSpec);
+         cosThetaZ_Real = calculate_cosThetaZ(Wboson, top, qSpec);
 
          cosThetaXStar_Real = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, Wboson);
 	 cosThetaYStar_Real = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, Wboson);
@@ -482,7 +482,7 @@ void NanoGENanalyzer::Loop()
          SolutionNature = -1;
          // std::cout<<"comLHE_leptonex solution"<<std::endl;
          sinTheta_ComLHE_leptonex = calculate_sinTheta(Wboson, top, qSpec);
-         cosThetaX_ComLHE_leptonex = calculate_cosThetaX(Wboson, top, qSpec);
+         cosThetaZ_ComLHE_leptonex = calculate_cosThetaZ(Wboson, top, qSpec);
 
          cosThetaXStar_ComLHE_leptonex = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, Wboson);
 	 cosThetaYStar_ComLHE_leptonex = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, Wboson);
