@@ -93,7 +93,7 @@ void NanoGENanalyzer::Loop()
 
    int SolutionNature;
 
-   float sinTheta, cosThetaX;
+   float sinTheta, cosThetaZ;
    float sinThetaStar, cosThetaXStar, cosThetaYStar, cosThetaZStar;
    float sinPhiStar, cosPhiStar, PhiStar;
    float lepton_E_Wframe;
@@ -105,7 +105,7 @@ void NanoGENanalyzer::Loop()
 
    /*________Variables to separate C and R solutions of W boson reconstruction________*/
 
-   float sinTheta_Real, cosThetaX_Real;
+   float sinTheta_Real, cosThetaZ_Real;
    float sinThetaStar_Real, cosThetaXStar_Real, cosThetaYStar_Real, cosThetaZStar_Real;
    float sinPhiStar_Real, cosPhiStar_Real, PhiStar_Real;
    float lepton_E_Wframe_Real;
@@ -114,8 +114,8 @@ void NanoGENanalyzer::Loop()
    float top_phi_Real, neutrino_phi_Real;
    float top_mass_Real, W_mass_Real, W_transverse_mass_Real;
 
-   float sinTheta_ComLHE_leptonex, cosTheta_ComLHE_leptonex;
-   float sinThetaStar_ComLHE_leptonex, cosThetaStar_ComLHE_leptonex;
+   float sinTheta_ComLHE_leptonex, cosThetaZ_ComLHE_leptonex;
+   float sinThetaStar_ComLHE_leptonex, cosThetaZStar_ComLHE_leptonex, cosThetaXStar_ComLHE_leptonex, cosThetaYStar_ComLHE_leptonex;
    float sinPhiStar_ComLHE_leptonex, cosPhiStar_ComLHE_leptonex, PhiStar_ComLHE_leptonex;
    float lepton_E_Wframe_ComLHE_leptonex;
    float top_pt_ComLHE_leptonex, W_pt_ComLHE_leptonex, lepton_pt_ComLHE_leptonex, neutrino_pt_ComLHE_leptonex;
@@ -145,9 +145,11 @@ void NanoGENanalyzer::Loop()
 
    // Real + ComLHE_leptonex Solutions
    GENoutput->Branch("nature_lepton",&nature_lepton,"nature_lepton/F");
-   GENoutput->Branch("cosTheta",&cosTheta,"cosTheta/F");
+   GENoutput->Branch("cosThetaZ",&cosThetaZ,"cosThetaZ/F");
    GENoutput->Branch("sinTheta",&sinTheta,"sinTheta/F");
-   GENoutput->Branch("cosThetaStar",&cosThetaStar,"cosThetaStar/F");
+   GENoutput->Branch("cosThetaZStar",&cosThetaZStar,"cosThetaZStar/F");
+   GENoutput->Branch("cosThetaXStar",&cosThetaXStar,"cosThetaXStar/F");
+   GENoutput->Branch("cosThetaYStar",&cosThetaYStar,"cosThetaYStar/F");
    GENoutput->Branch("sinThetaStar",&sinThetaStar,"sinThetaStar/F");
    GENoutput->Branch("cosPhiStar",&cosPhiStar,"cosPhiStar/F");
    GENoutput->Branch("sinPhiStar",&sinPhiStar,"sinPhiStar/F");
@@ -187,9 +189,11 @@ void NanoGENanalyzer::Loop()
 
 
 
-   GENoutput_Real->Branch("cosTheta_Real",&cosTheta_Real,"cosTheta_Real/F");
+   GENoutput_Real->Branch("cosThetaZ_Real",&cosThetaZ_Real,"cosThetaZ_Real/F");
    GENoutput_Real->Branch("sinTheta_Real",&sinTheta_Real,"sinTheta_Real/F");
-   GENoutput_Real->Branch("cosThetaStar_Real",&cosThetaStar_Real,"cosThetaStar_Real/F");
+   GENoutput_Real->Branch("cosThetaZStar_Real",&cosThetaZStar_Real,"cosThetaZStar_Real/F");
+   GENoutput_Real->Branch("cosThetaXStar_Real",&cosThetaXStar_Real,"cosThetaXStar_Real/F");
+   GENoutput_Real->Branch("cosThetaYStar_Real",&cosThetaYStar_Real,"cosThetaYStar_Real/F");
    GENoutput_Real->Branch("sinThetaStar_Real",&sinThetaStar_Real,"sinThetaStar_Real/F");
    GENoutput_Real->Branch("cosPhiStar_Real",&cosPhiStar_Real,"cosPhiStar_Real/F");
    GENoutput_Real->Branch("sinPhiStar_Real",&sinPhiStar_Real,"sinPhiStar_Real/F");
@@ -207,9 +211,11 @@ void NanoGENanalyzer::Loop()
    GENoutput_Real->Branch("W_mass_Real", &W_mass_Real, "W_mass_Real/F");
    GENoutput_Real->Branch("W_transverse_mass_Real", &W_transverse_mass_Real, "W_transverse_mass_Real/F");
 
-   GENoutput_ComLHE_leptonex->Branch("cosTheta_ComLHE_leptonex",&cosTheta_ComLHE_leptonex,"cosTheta_ComLHE_leptonex/F");
+   GENoutput_ComLHE_leptonex->Branch("cosThetaZ_ComLHE_leptonex",&cosThetaZ_ComLHE_leptonex,"cosThetaZ_ComLHE_leptonex/F");
    GENoutput_ComLHE_leptonex->Branch("sinTheta_ComLHE_leptonex",&sinTheta_ComLHE_leptonex,"sinTheta_ComLHE_leptonex/F");
-   GENoutput_ComLHE_leptonex->Branch("cosThetaStar_ComLHE_leptonex",&cosThetaStar_ComLHE_leptonex,"cosThetaStar_ComLHE_leptonex/F");
+   GENoutput_ComLHE_leptonex->Branch("cosThetaZStar_ComLHE_leptonex",&cosThetaZStar_ComLHE_leptonex,"cosThetaZStar_ComLHE_leptonex/F");
+   GENoutput_ComLHE_leptonex->Branch("cosThetaXStar_ComLHE_leptonex",&cosThetaXStar_ComLHE_leptonex,"cosThetaXStar_ComLHE_leptonex/F");
+   GENoutput_ComLHE_leptonex->Branch("cosThetaYStar_ComLHE_leptonex",&cosThetaYStar_ComLHE_leptonex,"cosThetaYStar_ComLHE_leptonex/F");
    GENoutput_ComLHE_leptonex->Branch("sinThetaStar_ComLHE_leptonex",&sinThetaStar_ComLHE_leptonex,"sinThetaStar_ComLHE_leptonex/F");
    GENoutput_ComLHE_leptonex->Branch("cosPhiStar_ComLHE_leptonex",&cosPhiStar_ComLHE_leptonex,"cosPhiStar_ComLHE_leptonex/F");
    GENoutput_ComLHE_leptonex->Branch("sinPhiStar_ComLHE_leptonex",&sinPhiStar_ComLHE_leptonex,"sinPTreehiStar_ComLHE_leptonex/F");
