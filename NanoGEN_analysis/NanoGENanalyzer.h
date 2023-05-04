@@ -999,11 +999,6 @@ double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector Wboson, TLo
 {
    double cosThetaXStar;
    
-   TVector3 InvariantWBoost;
-   InvariantWBoost.SetXYZ(-Wboson.Px()/Wboson.E(),-Wboson.Py()/Wboson.E(),-Wboson.Pz()/Wboson.E());
-
-   Wboson.Boost(InvariantTopBoost);
-   qSpec.Boost(InvariantTopBoost);
 
    TVector3 Zdir = Wboson.Vect().Unit();
    TVector3 qSpecUnit = qSpec.Vect().Unit();
@@ -1020,11 +1015,6 @@ double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector Wboson, TLo
 {
    double cosThetaYStar;
    
-   TVector3 InvariantWBoost;
-   InvariantWBoost.SetXYZ(-Wboson.Px()/Wboson.E(),-Wboson.Py()/Wboson.E(),-Wboson.Pz()/Wboson.E());
-
-   Wboson.Boost(InvariantTopBoost);
-   qSpec.Boost(InvariantTopBoost);
 
    TVector3 Zdir = Wboson.Vect().Unit();
    TVector3 qSpecUnit = qSpec.Vect().Unit();
