@@ -428,9 +428,11 @@ void NanoGENanalyzer::Loop()
       
       
       sinTheta = calculate_sinTheta(Wboson, top, qSpec);
-      cosTheta = calculate_cosTheta(Wboson, top, qSpec);
+      cosThetaZ = calculate_cosThetaZ(Wboson, top, qSpec);
 
-      cosThetaStar = calculate_cosThetaStar(SelectedGenDressedLepton_lead, Wboson);
+      cosThetaZStar = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, Wboson);
+      cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, Wboson);
+      cosThetaYStar = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, Wboson);
       sinThetaStar = calculate_sinThetaStar(SelectedGenDressedLepton_lead, Wboson);
 
       PhiStar = calculate_PhiStar(SelectedGenDressedLepton_lead, Wboson, qSpec);
@@ -444,9 +446,11 @@ void NanoGENanalyzer::Loop()
          SolutionNature = 1;
          // std::cout<<"real solution"<<std::endl;
          sinTheta_Real = calculate_sinTheta(Wboson, top, qSpec);
-         cosTheta_Real = calculate_cosTheta(Wboson, top, qSpec);
+         cosThetaX_Real = calculate_cosThetaX(Wboson, top, qSpec);
 
-         cosThetaStar_Real = calculate_cosThetaStar(SelectedGenDressedLepton_lead, Wboson);
+         cosThetaXStar_Real = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, Wboson);
+	 cosThetaYStar_Real = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, Wboson);
+	 cosThetaZStar_Real = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, Wboson);
          sinThetaStar_Real = calculate_sinThetaStar(SelectedGenDressedLepton_lead, Wboson);
 
          PhiStar_Real = calculate_PhiStar(SelectedGenDressedLepton_lead, Wboson, qSpec);
@@ -472,9 +476,11 @@ void NanoGENanalyzer::Loop()
          SolutionNature = -1;
          // std::cout<<"comLHE_leptonex solution"<<std::endl;
          sinTheta_ComLHE_leptonex = calculate_sinTheta(Wboson, top, qSpec);
-         cosTheta_ComLHE_leptonex = calculate_cosTheta(Wboson, top, qSpec);
+         cosThetaX_ComLHE_leptonex = calculate_cosThetaX(Wboson, top, qSpec);
 
-         cosThetaStar_ComLHE_leptonex = calculate_cosThetaStar(SelectedGenDressedLepton_lead, Wboson);
+         cosThetaXStar_ComLHE_leptonex = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, Wboson);
+	 cosThetaYStar_ComLHE_leptonex = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, Wboson);
+	 cosThetaZStar_ComLHE_leptonex = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, Wboson);
          sinThetaStar_ComLHE_leptonex = calculate_sinThetaStar(SelectedGenDressedLepton_lead, Wboson);
 
          PhiStar_ComLHE_leptonex = calculate_PhiStar(SelectedGenDressedLepton_lead, Wboson, qSpec);
