@@ -995,12 +995,9 @@ double calculate_cosThetaZStar(TLorentzVector lepton, TLorentzVector Wboson)
    return cosThetaZStar;
 }
 
-double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector Wboson, TLorentzVector top, TLorentzVector qSpec)
+double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector Wboson, TLorentzVector qSpec)
 {
    double cosThetaXStar;
-
-   TVector3 InvariantTopBoost;
-   InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
    
    TVector3 InvariantWBoost;
    InvariantWBoost.SetXYZ(-Wboson.Px()/Wboson.E(),-Wboson.Py()/Wboson.E(),-Wboson.Pz()/Wboson.E());
@@ -1019,13 +1016,9 @@ double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector Wboson, TLo
    return cosThetaXStar;
 }
 
-double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector Wboson, TLorentzVector top, TLorentzVector qSpec)
+double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector Wboson, TLorentzVector qSpec)
 {
    double cosThetaYStar;
-
-
-   TVector3 InvariantTopBoost;
-   InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
    
    TVector3 InvariantWBoost;
    InvariantWBoost.SetXYZ(-Wboson.Px()/Wboson.E(),-Wboson.Py()/Wboson.E(),-Wboson.Pz()/Wboson.E());
