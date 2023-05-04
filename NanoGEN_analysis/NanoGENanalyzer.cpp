@@ -93,8 +93,8 @@ void NanoGENanalyzer::Loop()
 
    int SolutionNature;
 
-   float sinTheta, cosTheta;
-   float sinThetaStar, cosThetaStar;
+   float sinTheta, cosThetaX;
+   float sinThetaStar, cosThetaXStar, cosThetaYStar, cosThetaZStar;
    float sinPhiStar, cosPhiStar, PhiStar;
    float lepton_E_Wframe;
    float top_pt, W_pt, lepton_pt, neutrino_pt, specJet_pt, bJet_pt;
@@ -105,8 +105,8 @@ void NanoGENanalyzer::Loop()
 
    /*________Variables to separate C and R solutions of W boson reconstruction________*/
 
-   float sinTheta_Real, cosTheta_Real;
-   float sinThetaStar_Real, cosThetaStar_Real;
+   float sinTheta_Real, cosThetaX_Real;
+   float sinThetaStar_Real, cosThetaXStar_Real, cosThetaYStar_Real, cosThetaZStar_Real;
    float sinPhiStar_Real, cosPhiStar_Real, PhiStar_Real;
    float lepton_E_Wframe_Real;
    float top_pt_Real, W_pt_Real, lepton_pt_Real, neutrino_pt_Real; 
