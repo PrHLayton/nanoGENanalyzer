@@ -1013,8 +1013,8 @@ double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    bJet.Boost(InvariantTopBoost);
 
    TVector3 Zdir = qSpec.Vect().Unit();
-   TVector3 bJet = bJet.Vect().Unit();
-   TVector3 Ydir = bJet.Cross(Zdir).Unit();
+   TVector3 bJetUnit = bJet.Vect().Unit();
+   TVector3 Ydir = bJetUnit.Cross(Zdir).Unit();
    TVector3 Xdir = Ydir.Cross(Zdir);
    TVector3 leptonUnitary = lepton.Vect().Unit();
 
@@ -1035,8 +1035,8 @@ double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    bJet.Boost(InvariantTopBoost);
 
    TVector3 Zdir = qSpec.Vect().Unit();
-   TVector3 bJet = bJet.Vect().Unit();
-   TVector3 Ydir = bJet.Cross(Zdir).Unit();
+   TVector3 bJetUnit = bJet.Vect().Unit();
+   TVector3 Ydir = bJetUnit.Cross(Zdir).Unit();
    TVector3 Xdir = Ydir.Cross(Zdir);
    TVector3 leptonUnitary = lepton.Vect().Unit();
 
