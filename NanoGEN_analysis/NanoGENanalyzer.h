@@ -983,7 +983,7 @@ double calculate_sinThetaStar(TLorentzVector lepton, TLorentzVector Wboson)
    return sinThetaStar;
 }
 
-double calculate_cosThetaZStar(TLorentzVector lepton, TLorentzVector qSpec)
+double calculate_cosThetaZStar(TLorentzVector lepton, TLorentzVector top, TLorentzVector qSpec)
 {
    double cosThetaZStar;
 
@@ -1001,7 +1001,7 @@ double calculate_cosThetaZStar(TLorentzVector lepton, TLorentzVector qSpec)
    return cosThetaZStar;
 }
 
-double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLorentzVector bJet)
+double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLorentzVector top, TLorentzVector bJet)
 {
    double cosThetaXStar;
    
@@ -1022,7 +1022,7 @@ double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    return cosThetaXStar;
 }
 
-double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLorentzVector bJet)
+double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLorentzVector top, TLorentzVector bJet)
 {
    double cosThetaYStar;
    
