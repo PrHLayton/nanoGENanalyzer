@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <math.h>
 
+
 #include "Math/Functor.h"
 #include "Math/Factory.h"
 #include "Math/Minimizer.h"
@@ -922,6 +923,8 @@ bool ReconstructW_Streco(TLorentzVector* p4W, TLorentzVector* p4nu, TLorentzVect
 
 /*_____________________Angles reco______________________*/
 
+
+
 double calculate_sinTheta(TLorentzVector Wboson, TLorentzVector top, TLorentzVector qSpec)
 {
 
@@ -1001,20 +1004,25 @@ double calculate_cosThetaZStar(TLorentzVector lepton, TLorentzVector top, TLoren
    return cosThetaZStar;
 }
 
-double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLorentzVector top, TLorentzVector bJet)
+double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLorentzVector top)
 {
    double cosThetaXStar;
-   
+
    TVector3 InvariantTopBoost;
    InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
 
+    TVector3 labZdir(0, 0, 1);
+    TVector3 qSpecUnit = qSpec.Vect().Unit();
+    TVector3 lightQ = labZdir;
+    if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;
+
    lepton.Boost(InvariantTopBoost);
    qSpec.Boost(InvariantTopBoost);
-   bJet.Boost(InvariantTopBoost);
+   lightQ = lightQ + InvariantTopBoost;
 
+   
    TVector3 Zdir = qSpec.Vect().Unit();
-   TVector3 bJetUnit = bJet.Vect().Unit();
-   TVector3 Ydir = bJetUnit.Cross(Zdir).Unit();
+   TVector3 Ydir = -lightQ.Cross(Zdir).Unit();
    TVector3 Xdir = Ydir.Cross(Zdir);
    TVector3 leptonUnitary = lepton.Vect().Unit();
 
@@ -1023,20 +1031,25 @@ double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    return cosThetaXStar;
 }
 
-double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLorentzVector top, TLorentzVector bJet)
+double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLorentzVector top)
 {
    double cosThetaYStar;
    
-   TVector3 InvariantTopBoost;
+    TVector3 InvariantTopBoost;
    InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
+
+    TVector3 labZdir(0, 0, 1);
+    TVector3 qSpecUnit = qSpec.Vect().Unit();
+    TVector3 lightQ = labZdir;
+    if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;
 
    lepton.Boost(InvariantTopBoost);
    qSpec.Boost(InvariantTopBoost);
-   bJet.Boost(InvariantTopBoost);
+   lightQ = lightQ + InvariantTopBoost;
 
+   
    TVector3 Zdir = qSpec.Vect().Unit();
-   TVector3 bJetUnit = bJet.Vect().Unit();
-   TVector3 Ydir = bJetUnit.Cross(Zdir).Unit();
+   TVector3 Ydir = -lightQ.Cross(Zdir).Unit();
    TVector3 Xdir = Ydir.Cross(Zdir);
    TVector3 leptonUnitary = lepton.Vect().Unit();
 

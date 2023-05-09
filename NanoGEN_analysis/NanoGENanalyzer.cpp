@@ -9,6 +9,7 @@
 #include <TTree.h>
 #include <TObject.h>
 
+
 #include <iostream>
 
 using namespace std;
@@ -83,18 +84,24 @@ void NanoGENanalyzer::Loop()
    float deltaR_lepton_specQ_boosted_LHElevel;
    float nature_lepton_LHE;
 
+   float sinThetaStar, cosThetaXStar, cosThetaYStar, cosThetaZStar;
+
    LHEoutput->Branch("deltaR_lepton_bQuark_LHElevel", &deltaR_lepton_bQuark_LHElevel, "deltaR_lepton_bQuark_LHElevel/F");
    LHEoutput->Branch("deltaR_lepton_specQ_LHElevel", &deltaR_lepton_specQ_LHElevel, "deltaR_lepton_specQ_LHElevel/F");
    LHEoutput->Branch("deltaR_lepton_bQuark_boosted_LHElevel", &deltaR_lepton_bQuark_LHElevel, "deltaR_lepton_bQuark_LHElevel/F");
    LHEoutput->Branch("deltaR_lepton_specQ_boosted_LHElevel", &deltaR_lepton_specQ_LHElevel, "deltaR_lepton_specQ_LHElevel/F");
    LHEoutput->Branch("nature_lepton_LHE",&nature_lepton_LHE,"nature_lepton_LHE/F");
 
+   LHEoutput->Branch("cosThetaZStar",&cosThetaZStar,"cosThetaZStar/F");
+   LHEoutput->Branch("cosThetaXStar",&cosThetaXStar,"cosThetaXStar/F");
+   LHEoutput->Branch("cosThetaYStar",&cosThetaYStar,"cosThetaYStar/F");
+
    /*------------------- Generator Variables-------------------*/
 
    int SolutionNature;
 
    float sinTheta, cosThetaZ;
-   float sinThetaStar, cosThetaXStar, cosThetaYStar, cosThetaZStar;
+   
    float sinPhiStar, cosPhiStar, PhiStar;
    float lepton_E_Wframe;
    float top_pt, W_pt, lepton_pt, neutrino_pt, specJet_pt, bJet_pt;
@@ -431,14 +438,19 @@ void NanoGENanalyzer::Loop()
 
       /*______________ANGLE RECONSTRUCTION______________*/
 
-      
+      int value = 2;
+
+      switch(value) {
+
+	case 1:	
+
       
       sinTheta = calculate_sinTheta(Wboson, top, qSpec);
       cosThetaZ = calculate_cosThetaZ(Wboson, top, qSpec);
 
       cosThetaZStar = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
-      cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top, bJet);
-      cosThetaYStar = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top, bJet);
+      cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);
+      cosThetaYStar = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top);
       sinThetaStar = calculate_sinThetaStar(SelectedGenDressedLepton_lead, Wboson);
 
       PhiStar = calculate_PhiStar(SelectedGenDressedLepton_lead, Wboson, qSpec);
@@ -454,8 +466,8 @@ void NanoGENanalyzer::Loop()
          sinTheta_Real = calculate_sinTheta(Wboson, top, qSpec);
          cosThetaZ_Real = calculate_cosThetaZ(Wboson, top, qSpec);
 
-         cosThetaXStar_Real = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top, bJet);
-	 cosThetaYStar_Real = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top, bJet);
+         cosThetaXStar_Real = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);
+	 cosThetaYStar_Real = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top);
 	 cosThetaZStar_Real = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
          sinThetaStar_Real = calculate_sinThetaStar(SelectedGenDressedLepton_lead, Wboson);
 
@@ -484,8 +496,8 @@ void NanoGENanalyzer::Loop()
          sinTheta_ComLHE_leptonex = calculate_sinTheta(Wboson, top, qSpec);
          cosThetaZ_ComLHE_leptonex = calculate_cosThetaZ(Wboson, top, qSpec);
 
-         cosThetaXStar_ComLHE_leptonex = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top, bJet);
-	 cosThetaYStar_ComLHE_leptonex = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top, bJet);
+         cosThetaXStar_ComLHE_leptonex = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);
+	 cosThetaYStar_ComLHE_leptonex = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top);
 	 cosThetaZStar_ComLHE_leptonex = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
          sinThetaStar_ComLHE_leptonex = calculate_sinThetaStar(SelectedGenDressedLepton_lead, Wboson);
 
@@ -547,6 +559,8 @@ void NanoGENanalyzer::Loop()
 
       GENoutput->Fill();
 
+      break;
+
 
 
 
@@ -563,85 +577,96 @@ void NanoGENanalyzer::Loop()
 
       /*---------------------- LHE level analysis -------------------------*/
 
-      // TLorentzVector LHE_Wboson(0,0,0,0);
-      // TLorentzVector LHE_lepton(0,0,0,0);
-      // TLorentzVector LHE_specQ(0,0,0,0);
-      // TLorentzVector LHE_bQuark(0,0,0,0);
-      // TLorentzVector LHE_topQ(0,0,0,0);
-      // TLorentzVector LHE_neutrino(0,0,0,0);
+
+	case 2:
+
+       TLorentzVector LHE_Wboson(0,0,0,0);
+       TLorentzVector LHE_lepton(0,0,0,0);
+       TLorentzVector LHE_specQ(0,0,0,0);
+       TLorentzVector LHE_bQuark(0,0,0,0);
+       TLorentzVector LHE_topQ(0,0,0,0);
+       TLorentzVector LHE_neutrino(0,0,0,0);
 
       // // std::cout << "LHE_NLHE_leptonO = " << LHE_NLHE_leptonO << std::endl;
 
 
 
-      // for(int i=0; i<nLHEPart; i++)
-      // {
+       for(int i=0; i<nLHEPart; i++)
+       {
 
-      // //   std::cout << "LHEPart_pdgId = " << LHEPart_pdgId[i] << std::endl;
-      // //   std::cout << "LHEPart_status = " << LHEPart_status[i] << std::endl;
-
-
-		//   if (TMath::Abs(LHEPart_pdgId[i])==24)
-		// 	   LHE_Wboson.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
-
-		//   if (TMath::Abs(LHEPart_pdgId[i])==5 && LHEPart_status[i]==1)
-		// 	  LHE_bQuark.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
-
-		//   if (TMath::Abs(LHEPart_pdgId[i])<5 && LHEPart_status[i]==1)
-		// 	  LHE_specQ.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
-
-		//   if ((TMath::Abs(LHEPart_pdgId[i])==11 || TMath::Abs(LHEPart_pdgId[i])==13))
-      //    {
-      //       LHE_lepton.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
-
-      //       if (abs(LHEPart_pdgId[i]) == 11)
-      //       {
-      //          nature_lepton_LHE = 1.0; //Electron
-      //       }
-      //       if (abs(LHEPart_pdgId[i]) == 13)
-      //       {
-      //          nature_lepton_LHE = 2.0; //Muon
-      //       }
-      //    }
+        // std::cout << "LHEPart_pdgId = " << LHEPart_pdgId[i] << std::endl;
+        // std::cout << "LHEPart_status = " << LHEPart_status[i] << std::endl;
 
 
-      //    if ((TMath::Abs(LHEPart_pdgId[i])==12 || TMath::Abs(LHEPart_pdgId[i])==14))
-  		//       LHE_neutrino.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
+		   if (TMath::Abs(LHEPart_pdgId[i])==24)
+		 	   LHE_Wboson.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
 
-      // }
+		   if (TMath::Abs(LHEPart_pdgId[i])==5 && LHEPart_status[i]==1)
+		 	  LHE_bQuark.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
 
-      // LHE_topQ = LHE_bQuark + LHE_lepton + LHE_neutrino;
+		   if (TMath::Abs(LHEPart_pdgId[i])<5 && LHEPart_status[i]==1)
+		 	  LHE_specQ.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
 
-      // TVector3 InvariantTopBoost;
-      // InvariantTopBoost.SetXYZ(-LHE_topQ.Px()/LHE_topQ.E(),-LHE_topQ.Py()/LHE_topQ.E(),-LHE_topQ.Pz()/LHE_topQ.E());
+		   if ((TMath::Abs(LHEPart_pdgId[i])==11 || TMath::Abs(LHEPart_pdgId[i])==13))
+          {
+             LHE_lepton.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
 
-
-  	   // if ((LHE_lepton.Pt()<32 || TMath::Abs(LHE_lepton.Eta())>2.1) && nature_lepton_LHE==1.0) continue; //Electron Streco Selection
-      // if ((LHE_lepton.Pt()<30 || TMath::Abs(LHE_lepton.Eta())>2.4) && nature_lepton_LHE==2.0) continue; //Muon Streco Selection
-      // if (LHE_specQ.Pt()<40 || TMath::Abs(LHE_specQ.Eta())>4.7) continue; //Jet 1st selection
-      // if (TMath::Abs(LHE_specQ.Eta()) >= 2.4 && LHE_specQ.Pt() < 60) continue; //Jet Streco 2nd selection for |eta|>=2.4
-      // if (LHE_bQuark.Pt()<40 || TMath::Abs(LHE_bQuark.Eta())>2.5) continue; //b jetStreco Selection 
-      // if (TMath::Abs(LHE_bQuark.Eta()) >= 2.4 && LHE_bQuark.Pt() < 60) continue; //Jet Streco 2nd selection for |eta|>=2.4
-
-
-      // deltaR_lepton_bQuark_LHElevel = LHE_lepton.DeltaR(LHE_bQuark);
-      // deltaR_lepton_specQ_LHElevel = LHE_lepton.DeltaR(LHE_specQ);
-
-      // LHE_lepton.Boost(InvariantTopBoost);
-      // LHE_specQ.Boost(InvariantTopBoost);
-      // LHE_bQuark.Boost(InvariantTopBoost);
-
-      // deltaR_lepton_bQuark_boosted_LHElevel = LHE_lepton.DeltaR(LHE_bQuark);
-      // deltaR_lepton_specQ_boosted_LHElevel = LHE_lepton.DeltaR(LHE_specQ);
+             if (abs(LHEPart_pdgId[i]) == 11)
+             {
+                nature_lepton_LHE = 1.0; //Electron
+             }
+             if (abs(LHEPart_pdgId[i]) == 13)
+             {
+                nature_lepton_LHE = 2.0; //Muon
+             }
+          }
 
 
-      // // LHEoutput->SetWeight(genWeight/sumOf_genWeights);
+          if ((TMath::Abs(LHEPart_pdgId[i])==12 || TMath::Abs(LHEPart_pdgId[i])==14))
+  		       LHE_neutrino.SetPtEtaPhiM(LHEPart_pt[i], LHEPart_eta[i], LHEPart_phi[i], LHEPart_mass[i]);
 
-      // GENweight = genWeight;
-      // LHEweight = LHEWeight_originalXWGTUP;
+       }
 
-      // // Weights->Fill();
-      // LHEoutput->Fill();
+       LHE_topQ = LHE_bQuark + LHE_lepton + LHE_neutrino;
+
+       TVector3 InvariantTopBoost;
+       InvariantTopBoost.SetXYZ(-LHE_topQ.Px()/LHE_topQ.E(),-LHE_topQ.Py()/LHE_topQ.E(),-LHE_topQ.Pz()/LHE_topQ.E());
+
+
+  	    if ((LHE_lepton.Pt()<32 || TMath::Abs(LHE_lepton.Eta())>2.1) && nature_lepton_LHE==1.0) continue; //Electron Streco Selection
+       if ((LHE_lepton.Pt()<30 || TMath::Abs(LHE_lepton.Eta())>2.4) && nature_lepton_LHE==2.0) continue; //Muon Streco Selection
+       if (LHE_specQ.Pt()<40 || TMath::Abs(LHE_specQ.Eta())>4.7) continue; //Jet 1st selection
+       if (TMath::Abs(LHE_specQ.Eta()) >= 2.4 && LHE_specQ.Pt() < 60) continue; //Jet Streco 2nd selection for |eta|>=2.4
+       if (LHE_bQuark.Pt()<40 || TMath::Abs(LHE_bQuark.Eta())>2.5) continue; //b jetStreco Selection 
+       if (TMath::Abs(LHE_bQuark.Eta()) >= 2.4 && LHE_bQuark.Pt() < 60) continue; //Jet Streco 2nd selection for |eta|>=2.4
+       deltaR_lepton_bQuark_LHElevel = LHE_lepton.DeltaR(LHE_bQuark);
+       deltaR_lepton_specQ_LHElevel = LHE_lepton.DeltaR(LHE_specQ);
+
+
+       cosThetaZStar = calculate_cosThetaZStar(LHE_lepton, LHE_topQ, LHE_specQ);
+       cosThetaXStar = calculate_cosThetaXStar(LHE_lepton, LHE_specQ, LHE_topQ);
+       cosThetaYStar = calculate_cosThetaYStar(LHE_lepton, LHE_specQ, LHE_topQ);
+
+       LHE_lepton.Boost(InvariantTopBoost);
+       LHE_specQ.Boost(InvariantTopBoost);
+       LHE_bQuark.Boost(InvariantTopBoost);
+
+       deltaR_lepton_bQuark_boosted_LHElevel = LHE_lepton.DeltaR(LHE_bQuark);
+       deltaR_lepton_specQ_boosted_LHElevel = LHE_lepton.DeltaR(LHE_specQ);
+
+
+       LHEoutput->SetWeight(genWeight/sumOf_genWeights);
+
+       GENweight = genWeight;
+       LHEweight = LHEWeight_originalXWGTUP;
+
+       Weights->Fill();
+       LHEoutput->Fill();
+
+       break;
+
+	}
+
    }
 
    SumOfWeights->Fill();

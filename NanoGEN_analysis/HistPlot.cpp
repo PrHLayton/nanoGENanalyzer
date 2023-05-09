@@ -6,10 +6,10 @@
 
 void plotHistogramZ()
 {
-    TH1F* h1 = new TH1F("h1", "cosThetaZ*", 1000, -1.0, 1.0);
+    TH1F* h1 = new TH1F("h1", "cosThetaZ*", 100, -1.0, 1.0);
 
     TFile* input = new TFile("test.root", "read");
-    TTree* tree = (TTree*)input->Get("GENoutput");
+    TTree* tree = (TTree*)input->Get("LHE");
 
     float cosThetaZStar;
 
@@ -37,10 +37,10 @@ void plotHistogramZ()
 
 void plotHistogramX()
 {
-    TH1F* h1 = new TH1F("h1", "cosThetaX*", 1000, -1.0, 1.0);
+    TH1F* h1 = new TH1F("h1", "cosThetaX*", 100, -1.0, 1.0);
 
     TFile* input = new TFile("test.root", "read");
-    TTree* tree = (TTree*)input->Get("GENoutput");
+    TTree* tree = (TTree*)input->Get("LHE");
 
     float cosThetaXStar;
 
@@ -68,10 +68,10 @@ void plotHistogramX()
 
 void plotHistogramY()
 {
-    TH1F* h1 = new TH1F("h1", "cosThetaY*", 1000, -1.0, 1.0);
+    TH1F* h1 = new TH1F("h1", "cosThetaY*", 100, -1.0, 1.0);
 
     TFile* input = new TFile("test.root", "read");
-    TTree* tree = (TTree*)input->Get("GENoutput");
+    TTree* tree = (TTree*)input->Get("LHE");
 
     float cosThetaYStar;
 
