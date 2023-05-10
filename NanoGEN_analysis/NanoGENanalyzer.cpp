@@ -240,7 +240,7 @@ void NanoGENanalyzer::Loop()
    GENoutput_ComLHE_leptonex->Branch("W_mass_ComLHE_leptonex", &W_mass_ComLHE_leptonex, "W_mass_ComLHE_leptonex/F");
    GENoutput_ComLHE_leptonex->Branch("W_transverse_mass_ComLHE_leptonex", &W_transverse_mass_ComLHE_leptonex, "W_transverse_mass_ComLHE_leptonex/F");
 
-   /*-------------------- Sum Of Weights computation-------------------- */
+    /*-------------------- Sum Of Weights computation-------------------- */
 
    // double sumOf_LHEweights = 0.0;
    double sumOf_genWeights = 0.0;
@@ -257,26 +257,7 @@ void NanoGENanalyzer::Loop()
    GENoutput->Branch("GENweight", &GENweight, "GENweight/D");
    GENoutput->Branch("LHEweight", &LHEweight, "LHEweight/D");
 
-   if(sumOf_genWeights_beforeAnalysis == 0.0)
-   {
-
-      for (Long64_t jentry=0; jentry<nentries;jentry++)
-      {
-         Long64_t ientry = LoadTree(jentry);
-         if (ientry < 0) break;
-         nb = fChain->GetEntry(jentry);   nbytes += nb;
-         // std::cout << "nb = " << nb << std::endl;
-         // if (Cut(ientry) < 0) continue;
-
-         if(jentry%1000000==0) std::cout<<"weights loop "<<jentry<<std::endl;
-         // if(jentry==1000000) break;
-
-         sumOf_genWeights_beforeAnalysis += genWeight;
-         sumOf_LHEweights_beforeAnalysis += LHEWeight_originalXWGTUP;
    
-      }
-
-   }
 
    std::cout << "sumOf_genWeights_beforeAnalysis = " << sumOf_genWeights_beforeAnalysis << std::endl;
 
