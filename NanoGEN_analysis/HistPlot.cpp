@@ -27,7 +27,7 @@ void plotHistogramZ()
     h1->GetYaxis()->SetTitle("NbrOfEvent");
 
     TCanvas* canvasZ = new TCanvas("canvasZ", "Histogram Canvas Z", 1200, 800);
-    h1->Draw();
+    h1->Draw("E");
 
     canvasZ->SaveAs("cosThetaZ*.pdf");
 
@@ -58,7 +58,7 @@ void plotHistogramX()
     h1->GetYaxis()->SetTitle("NbrOfEvent");
 
     TCanvas* canvasX = new TCanvas("canvasX", "Histogram Canvas X", 1200, 800);
-    h1->Draw();
+    h1->Draw("E");
 
     canvasX->SaveAs("cosThetaX*.pdf");
 
@@ -89,7 +89,7 @@ void plotHistogramY()
     h1->GetYaxis()->SetTitle("NbrOfEvent");
 
     TCanvas* canvasY = new TCanvas("canvasY", "Histogram Canvas Y", 1200, 800);
-    h1->Draw();
+    h1->Draw("E");
 
     canvasY->SaveAs("cosThetaY*.pdf");
 

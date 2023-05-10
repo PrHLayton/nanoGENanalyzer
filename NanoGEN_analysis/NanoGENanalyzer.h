@@ -1011,14 +1011,18 @@ double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    TVector3 InvariantTopBoost;
    InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
 
-    TVector3 labZdir(0, 0, 1);
-    TVector3 qSpecUnit = qSpec.Vect().Unit();
-    TVector3 lightQ = labZdir;
-    if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;
+    //TVector3 labZdir(0, 0, 1);
+    //TVector3 lightQ = labZdir;
+    //if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;
+    //TVector3 qSpecUnit = qSpec.Vect().Unit();
+
+   TVector3 lightQ = qSpec.Z();
 
    lepton.Boost(InvariantTopBoost);
    qSpec.Boost(InvariantTopBoost);
    lightQ = lightQ + InvariantTopBoost;
+
+   TVector3 lightQunit = lightQ.Vect().Unit();
 
    
    TVector3 Zdir = qSpec.Vect().Unit();
@@ -1035,18 +1039,21 @@ double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
 {
    double cosThetaYStar;
    
-    TVector3 InvariantTopBoost;
+   TVector3 InvariantTopBoost;
    InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
 
-    TVector3 labZdir(0, 0, 1);
-    TVector3 qSpecUnit = qSpec.Vect().Unit();
-    TVector3 lightQ = labZdir;
-    if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;
+    //TVector3 labZdir(0, 0, 1);
+    //TVector3 lightQ = labZdir;
+    //if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;
+    //TVector3 qSpecUnit = qSpec.Vect().Unit();
+
+   TVector3 lightQ = qSpec.Z();
 
    lepton.Boost(InvariantTopBoost);
    qSpec.Boost(InvariantTopBoost);
    lightQ = lightQ + InvariantTopBoost;
 
+   TVector3 lightQunit = lightQ.Vect().Unit();
    
    TVector3 Zdir = qSpec.Vect().Unit();
    TVector3 Ydir = -lightQ.Cross(Zdir).Unit();
