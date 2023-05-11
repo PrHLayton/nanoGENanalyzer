@@ -7,6 +7,7 @@
 #include "TLegend.h"
 
 
+
 void plotHistogramZ()
 {
     TH1F* powheg = new TH1F("powheg", "cosThetaZ*", 30, -1.0, 1.0);
@@ -17,47 +18,49 @@ void plotHistogramZ()
     TFile* inputM = new TFile("MG5.root", "read");
     TTree* treeM = (TTree*)inputM->Get("LHE");
 
-    float cosThetaZStar;
+    float cosThetaZStarM, cosThetaZStarP;
+    double weightM, weightP;
 
-    treeP->SetBranchAddress("cosThetaZStar", &cosThetaZStar);
-    treeM->SetBranchAddress("cosThetaZStar", &cosThetaZStar);
+    treeP->SetBranchAddress("cosThetaZStar", &cosThetaZStarP);
+    treeP->SetBranchAddress("LHEweight", &weightP);
+    treeM->SetBranchAddress("cosThetaZStar", &cosThetaZStarM);
+    treeM->SetBranchAddress("LHEweight", &weightM);
 
     Long64_t pow_entries = treeP->GetEntries();
+
+    double sumOfWeightsP = 0;
 
     for (Long64_t i = 0; i < pow_entries; i++)
     {
         treeP->GetEntry(i);
-        powheg->Fill(cosThetaZStar);
+        powheg->Fill(cosThetaZStarP, weightP);
+	sumOfWeightsP += weightP;
     }
     powheg->SetLineColor(kRed);
-    
-    
-
+   
 
     Long64_t MG5_entries = treeM->GetEntries();
+
+    double sumOfWeightsM = 0;
 
     for (Long64_t i = 0; i < MG5_entries; i++)
     {
         treeM->GetEntry(i);
-        MG5->Fill(cosThetaZStar);
+        MG5->Fill(cosThetaZStarM, weightM);
+	sumOfWeightsM += weightM;
     }
     MG5->SetLineColor(kBlue);
-  
-    powheg->Scale(1.0/powheg->Integral());
-    MG5->Scale(1.0/MG5->Integral());
-     
+    
+    powheg->Scale(1.0 / sumOfWeightsP);
+    MG5->Scale(1.0 / sumOfWeightsM);
+
     THStack *histStack = new THStack("histStack", "cosThetaZ*");
 
-    histStack->Add(powheg, "NORM");
-    histStack->Add(MG5, "NORM");
-    
+    histStack->Add(powheg);
+    histStack->Add(MG5);
 
     TCanvas* canvasZ = new TCanvas("canvasZ", "Histogram Canvas Z", 1200, 800);
-
-    
-
-
-    histStack->Draw("E");
+    histStack->Draw("nostack");
 
     TLegend *legend = new TLegend(0.8, 0.8, 0.9, 0.9);
     legend->AddEntry(powheg, "powheg");
@@ -71,6 +74,8 @@ void plotHistogramZ()
     inputP->Close();
     inputM->Close();
 }
+
+
 
 void plotHistogramX()
 {
