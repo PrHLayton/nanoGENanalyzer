@@ -31,6 +31,7 @@ void plotHistogramZ()
     }
     powheg->SetLineColor(kRed);
     powheg->Scale(1.0/powheg->Integral());
+    
 
 
     Long64_t MG5_entries = treeM->GetEntries();
@@ -46,7 +47,6 @@ void plotHistogramZ()
      
     THStack *histStack = new THStack("histStack", "cosThetaZ*");
 
-   
     histStack->Add(powheg);
     histStack->Add(MG5);
     
