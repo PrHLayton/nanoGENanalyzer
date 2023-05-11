@@ -30,7 +30,7 @@ void plotHistogramZ()
         powheg->Fill(cosThetaZStar);
     }
     powheg->SetLineColor(kRed);
-    powheg->Scale(1.0/powheg->Integral());
+    
     
 
 
@@ -42,16 +42,21 @@ void plotHistogramZ()
         MG5->Fill(cosThetaZStar);
     }
     MG5->SetLineColor(kBlue);
-    MG5->Scale(1.0/MG5->Integral());
   
+    powheg->Scale(1.0/powheg->Integral());
+    MG5->Scale(1.0/MG5->Integral());
      
     THStack *histStack = new THStack("histStack", "cosThetaZ*");
 
-    histStack->Add(powheg);
-    histStack->Add(MG5);
+    histStack->Add(powheg, "NORM");
+    histStack->Add(MG5, "NORM");
     
 
     TCanvas* canvasZ = new TCanvas("canvasZ", "Histogram Canvas Z", 1200, 800);
+
+    
+
+
     histStack->Draw("E");
 
     TLegend *legend = new TLegend(0.8, 0.8, 0.9, 0.9);
