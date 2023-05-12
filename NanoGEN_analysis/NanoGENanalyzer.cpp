@@ -48,7 +48,7 @@ void NanoGENanalyzer::Loop()
    // const float xSec = 35.8253;
    // sumOf_genWeights_beforeAnalysis = 1.94133e+08 ;
 
-   TFile* fOutput = new TFile("MG5.root","RECREATE");
+   TFile* fOutput = new TFile("NewSelMG5.root","RECREATE");
    const float xSec = 35.4209;
    // sumOf_genWeights_beforeAnalysis = 1.75335e+08;
 
@@ -257,29 +257,7 @@ void NanoGENanalyzer::Loop()
    GENoutput->Branch("GENweight", &GENweight, "GENweight/D");
    GENoutput->Branch("LHEweight", &LHEweight, "LHEweight/D");
 
-   if(sumOf_genWeights_beforeAnalysis == 0.0)
-   {
-
-      for (Long64_t jentry=0; jentry<nentries;jentry++)
-      {
-         Long64_t ientry = LoadTree(jentry);
-         if (ientry < 0) break;
-         nb = fChain->GetEntry(jentry);   nbytes += nb;
-         // std::cout << "nb = " << nb << std::endl;
-         // if (Cut(ientry) < 0) continue;
-
-         if(jentry%1000000==0) std::cout<<"weights loop "<<jentry<<std::endl;
-         // if(jentry==1000000) break;
-
-         sumOf_genWeights_beforeAnalysis += genWeight;
-         sumOf_LHEweights_beforeAnalysis += LHEWeight_originalXWGTUP;
-   
-      }
-
-   }
-
-   std::cout << "sumOf_genWeights_beforeAnalysis = " << sumOf_genWeights_beforeAnalysis << std::endl;
-
+  
    for (Long64_t jentry=0; jentry<nentries;jentry++) 
    {
       Long64_t ientry = LoadTree(jentry);
@@ -634,14 +612,17 @@ void NanoGENanalyzer::Loop()
        InvariantTopBoost.SetXYZ(-LHE_topQ.Px()/LHE_topQ.E(),-LHE_topQ.Py()/LHE_topQ.E(),-LHE_topQ.Pz()/LHE_topQ.E());
 
 
-  	    if ((LHE_lepton.Pt()<32 || TMath::Abs(LHE_lepton.Eta())>2.1) && nature_lepton_LHE==1.0) continue; //Electron Streco Selection
-       if ((LHE_lepton.Pt()<30 || TMath::Abs(LHE_lepton.Eta())>2.4) && nature_lepton_LHE==2.0) continue; //Muon Streco Selection
-       if (LHE_specQ.Pt()<40 || TMath::Abs(LHE_specQ.Eta())>4.7) continue; //Jet 1st selection
-       if (TMath::Abs(LHE_specQ.Eta()) >= 2.4 && LHE_specQ.Pt() < 60) continue; //Jet Streco 2nd selection for |eta|>=2.4
-       if (LHE_bQuark.Pt()<40 || TMath::Abs(LHE_bQuark.Eta())>2.5) continue; //b jetStreco Selection 
-       if (TMath::Abs(LHE_bQuark.Eta()) >= 2.4 && LHE_bQuark.Pt() < 60) continue; //Jet Streco 2nd selection for |eta|>=2.4
+         if ((LHE_lepton.Pt()<=30 || TMath::Abs(LHE_lepton.Eta())>=2.47) && nature_lepton_LHE==1.0) continue; //Electron Streco Selection
+	    if ((TMath::Abs(LHE_lepton.Eta())<=1.37 || TMath::Abs(LHE_lepton.Eta())>=1.52) && nature_lepton_LHE==1.0) continue; //Electron Streco 2nd Selection
+       if ((LHE_lepton.Pt()<=30 || TMath::Abs(LHE_lepton.Eta())>=2.5) && nature_lepton_LHE==2.0) continue; //Muon Streco Selection
+       if (LHE_specQ.Pt()<=35 || TMath::Abs(LHE_specQ.Eta())>=3.5 || TMath::Abs(LHE_specQ.Eta())<=2.75) continue; //Jet 1st selection
+       if (LHE_bQuark.Pt()<=35 || TMath::Abs(LHE_bQuark.Eta())>=2.5) continue; //b jetStreco Selection 
+       if (met_pt <= 35) continue; 
        deltaR_lepton_bQuark_LHElevel = LHE_lepton.DeltaR(LHE_bQuark);
        deltaR_lepton_specQ_LHElevel = LHE_lepton.DeltaR(LHE_specQ);
+
+ 
+
 
 
        cosThetaZStar = calculate_cosThetaZStar(LHE_lepton, LHE_topQ, LHE_specQ);
