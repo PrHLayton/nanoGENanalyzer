@@ -48,7 +48,7 @@ void NanoGENanalyzer::Loop()
    // const float xSec = 35.8253;
    // sumOf_genWeights_beforeAnalysis = 1.94133e+08 ;
 
-   TFile* fOutput = new TFile("NewSelMG5.root","RECREATE");
+   TFile* fOutput = new TFile("NewSelPOWHEG.root","RECREATE");
    const float xSec = 35.4209;
    // sumOf_genWeights_beforeAnalysis = 1.75335e+08;
 
