@@ -48,7 +48,7 @@ void NanoGENanalyzer::Loop()
    // const float xSec = 35.8253;
    // sumOf_genWeights_beforeAnalysis = 1.94133e+08 ;
 
-   TFile* fOutput = new TFile("NewSelPOWHEG.root","RECREATE");
+   TFile* fOutput = new TFile("GEN_MG5.root","RECREATE");
    const float xSec = 35.4209;
    // sumOf_genWeights_beforeAnalysis = 1.75335e+08;
 
@@ -257,6 +257,29 @@ void NanoGENanalyzer::Loop()
    GENoutput->Branch("GENweight", &GENweight, "GENweight/D");
    GENoutput->Branch("LHEweight", &LHEweight, "LHEweight/D");
 
+
+ if(sumOf_genWeights_beforeAnalysis == 0.0)
+   {
+
+      for (Long64_t jentry=0; jentry<nentries;jentry++)
+      {
+         Long64_t ientry = LoadTree(jentry);
+         if (ientry < 0) break;
+         nb = fChain->GetEntry(jentry);   nbytes += nb;
+         // std::cout << "nb = " << nb << std::endl;
+         // if (Cut(ientry) < 0) continue;
+
+         if(jentry%1000000==0) std::cout<<"weights loop "<<jentry<<std::endl;
+         // if(jentry==1000000) break;
+
+         sumOf_genWeights_beforeAnalysis += genWeight;
+         sumOf_LHEweights_beforeAnalysis += LHEWeight_originalXWGTUP;
+   
+      }
+
+   }
+
+
   
    for (Long64_t jentry=0; jentry<nentries;jentry++) 
    {
@@ -417,7 +440,7 @@ void NanoGENanalyzer::Loop()
 
       /*______________ANGLE RECONSTRUCTION______________*/
 
-      int value = 2;
+      int value = 1;
 
       switch(value) {
 

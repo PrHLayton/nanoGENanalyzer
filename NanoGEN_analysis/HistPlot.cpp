@@ -5,26 +5,27 @@
 #include <TCanvas.h>
 #include <THStack.h>
 #include "TLegend.h"
-
+#include <iostream>
+using namespace std;
 
 
 void plotHistogramZ()
 {
     TH1F* powheg = new TH1F("powheg", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* inputP = new TFile("NewSelPOWHEG.root", "read");
-    TTree* treeP = (TTree*)inputP->Get("LHE");
+    TFile* inputP = new TFile("GEN_powheg.root", "read");
+    TTree* treeP = (TTree*)inputP->Get("GENoutput");
 
     TH1F* MG5 = new TH1F("MG5", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* inputM = new TFile("NewSelMG5.root", "read");
-    TTree* treeM = (TTree*)inputM->Get("LHE");
+    TFile* inputM = new TFile("GEN_MG5.root", "read");
+    TTree* treeM = (TTree*)inputM->Get("GENoutput");
 
     float cosThetaZStarM, cosThetaZStarP;
     double weightM, weightP;
 
     treeP->SetBranchAddress("cosThetaZStar", &cosThetaZStarP);
-    treeP->SetBranchAddress("LHEweight", &weightP);
+    treeP->SetBranchAddress("sumOf_genWeights", &weightP);
     treeM->SetBranchAddress("cosThetaZStar", &cosThetaZStarM);
-    treeM->SetBranchAddress("LHEweight", &weightM);
+    treeM->SetBranchAddress("sumOf_genWeights", &weightM);
 
     Long64_t pow_entries = treeP->GetEntries();
 
@@ -37,7 +38,7 @@ void plotHistogramZ()
 	sumOfWeightsP += weightP;
     }
     powheg->SetLineColor(kRed);
-   
+    //powheg->GetXaxis()->SetTitle("cosThetaZ*");
 
     Long64_t MG5_entries = treeM->GetEntries();
 
@@ -50,9 +51,14 @@ void plotHistogramZ()
 	sumOfWeightsM += weightM;
     }
     MG5->SetLineColor(kBlue);
+    //MG5->GetXaxis()->SetTitle("cosThetaZ*");
     
     powheg->Scale(1.0 / sumOfWeightsP);
     MG5->Scale(1.0 / sumOfWeightsM);
+
+	double integral = powheg->Integral(1, powheg->GetNbinsX());
+
+	cout << integral << endl;
 
     THStack *histStack = new THStack("histStack", "cosThetaZ*");
 
@@ -67,7 +73,7 @@ void plotHistogramZ()
     legend->AddEntry(MG5, "MG5");
     legend->Draw();
 
-    canvasZ->SaveAs("NewSelcosThetaZ*.pdf");
+    canvasZ->SaveAs("GENcosThetaZ*.pdf");
 
     delete powheg;
     delete MG5;
@@ -80,20 +86,20 @@ void plotHistogramZ()
 void plotHistogramX()
 {
     TH1F* powheg = new TH1F("powheg", "cosThetaX*", 30, -1.0, 1.0);
-    TFile* inputP = new TFile("NewSelPOWHEG.root", "read");
-    TTree* treeP = (TTree*)inputP->Get("LHE");
+    TFile* inputP = new TFile("GEN_powheg.root", "read");
+    TTree* treeP = (TTree*)inputP->Get("GENoutput");
 
     TH1F* MG5 = new TH1F("MG5", "cosThetaX*", 30, -1.0, 1.0);
-    TFile* inputM = new TFile("NewSelMG5.root", "read");
-    TTree* treeM = (TTree*)inputM->Get("LHE");
+    TFile* inputM = new TFile("GEN_MG5.root", "read");
+    TTree* treeM = (TTree*)inputM->Get("GENoutput");
 
     float cosThetaXStarM, cosThetaXStarP;
     double weightM, weightP;
 
     treeP->SetBranchAddress("cosThetaXStar", &cosThetaXStarP);
-    treeP->SetBranchAddress("LHEweight", &weightP);
+    treeP->SetBranchAddress("sumOf_genWeights", &weightP);
     treeM->SetBranchAddress("cosThetaXStar", &cosThetaXStarM);
-    treeM->SetBranchAddress("LHEweight", &weightM);
+    treeM->SetBranchAddress("sumOf_genWeights", &weightM);
 
     Long64_t pow_entries = treeP->GetEntries();
 
@@ -136,7 +142,7 @@ void plotHistogramX()
     legend->AddEntry(MG5, "MG5");
     legend->Draw();
 
-    canvasX->SaveAs("NewSelcosThetaX*.pdf");
+    canvasX->SaveAs("GENcosThetaX*.pdf");
 
     delete powheg;
     delete MG5;
@@ -148,20 +154,20 @@ void plotHistogramX()
 void plotHistogramY()
 {
     TH1F* powheg = new TH1F("powheg", "cosThetaY*", 30, -1.0, 1.0);
-    TFile* inputP = new TFile("NewSelPOWHEG.root", "read");
-    TTree* treeP = (TTree*)inputP->Get("LHE");
+    TFile* inputP = new TFile("GEN_powheg.root", "read");
+    TTree* treeP = (TTree*)inputP->Get("GENoutput");
 
     TH1F* MG5 = new TH1F("MG5", "cosThetaY*", 30, -1.0, 1.0);
-    TFile* inputM = new TFile("NewSelMG5.root", "read");
-    TTree* treeM = (TTree*)inputM->Get("LHE");
+    TFile* inputM = new TFile("GEN_MG5.root", "read");
+    TTree* treeM = (TTree*)inputM->Get("GENoutput");
 
     float cosThetaYStarM, cosThetaYStarP;
     double weightM, weightP;
 
     treeP->SetBranchAddress("cosThetaYStar", &cosThetaYStarP);
-    treeP->SetBranchAddress("LHEweight", &weightP);
+    treeP->SetBranchAddress("sumOf_genWeights", &weightP);
     treeM->SetBranchAddress("cosThetaYStar", &cosThetaYStarM);
-    treeM->SetBranchAddress("LHEweight", &weightM);
+    treeM->SetBranchAddress("sumOf_genWeights", &weightM);
 
     Long64_t pow_entries = treeP->GetEntries();
 
@@ -203,7 +209,7 @@ void plotHistogramY()
     legend->AddEntry(MG5, "MG5");
     legend->Draw();
 
-    canvasY->SaveAs("NewSelcosThetaY*.pdf");
+    canvasY->SaveAs("GENcosThetaY*.pdf");
 
     delete powheg;
     delete MG5;
