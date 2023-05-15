@@ -645,8 +645,7 @@ void NanoGENanalyzer::Loop()
        deltaR_lepton_specQ_LHElevel = LHE_lepton.DeltaR(LHE_specQ);
 
  
-
-
+	//angles reconstruction at LHE level
 
        cosThetaZStar = calculate_cosThetaZStar(LHE_lepton, LHE_topQ, LHE_specQ);
        cosThetaXStar = calculate_cosThetaXStar(LHE_lepton, LHE_specQ, LHE_topQ);

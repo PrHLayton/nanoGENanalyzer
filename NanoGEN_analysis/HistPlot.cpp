@@ -8,72 +8,88 @@
 #include <iostream>
 using namespace std;
 
+// This function produces a stacked histogram of the distribution of the variable "cosThetaZ*" 
+// for two different simulations called "powheg" and "MG5", and saves the plot as a PDF file.
+// The histograms are normalized by the sum of their weights.
 
 void plotHistogramZ()
 {
+    // Create histograms for powheg and MG5 simulations
     TH1F* powheg = new TH1F("powheg", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* inputP = new TFile("GEN_powheg.root", "read");
-    TTree* treeP = (TTree*)inputP->Get("GENoutput");
-
     TH1F* MG5 = new TH1F("MG5", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* inputM = new TFile("GEN_MG5.root", "read");
-    TTree* treeM = (TTree*)inputM->Get("GENoutput");
 
+    // Open input files for powheg and MG5 simulations
+    TFile* inputP = new TFile("powheg.root", "read");
+    TFile* inputM = new TFile("MG5.root", "read");
+
+    // Get the trees from the input files
+    TTree* treeP = (TTree*)inputP->Get("LHE");
+    TTree* treeM = (TTree*)inputM->Get("LHE");
+
+// Declare variables to store the values of the "cosThetaZStar" and "LHEweight" branches
     float cosThetaZStarM, cosThetaZStarP;
     double weightM, weightP;
 
+    // Set the branch addresses for relevant variables in the trees
     treeP->SetBranchAddress("cosThetaZStar", &cosThetaZStarP);
-    treeP->SetBranchAddress("sumOf_genWeights", &weightP);
+    treeP->SetBranchAddress("LHEweight", &weightP);
     treeM->SetBranchAddress("cosThetaZStar", &cosThetaZStarM);
-    treeM->SetBranchAddress("sumOf_genWeights", &weightM);
+    treeM->SetBranchAddress("LHEweight", &weightM);
 
+    //Get the number of entries in the "LHE" tree for powheg and declare a variable to store the sum of the weights
     Long64_t pow_entries = treeP->GetEntries();
-
     double sumOfWeightsP = 0;
 
+    // Fill the powheg histogram and calculate the sum of weights
     for (Long64_t i = 0; i < pow_entries; i++)
     {
         treeP->GetEntry(i);
-        powheg->Fill(cosThetaZStarP, weightP);
-	sumOfWeightsP += weightP;
+        powheg->Fill(cosThetaZStarP), weightP);
+        sumOfWeightsP += weightP;
     }
+    
+    // Set the line color of the powheg histogram
     powheg->SetLineColor(kRed);
-    //powheg->GetXaxis()->SetTitle("cosThetaZ*");
 
     Long64_t MG5_entries = treeM->GetEntries();
-
     double sumOfWeightsM = 0;
 
+    // Fill the MG5 histogram and calculate the sum of weights
     for (Long64_t i = 0; i < MG5_entries; i++)
     {
         treeM->GetEntry(i);
-        MG5->Fill(cosThetaZStarM, weightM);
-	sumOfWeightsM += weightM;
+        MG5->Fill(cosThetaZStarM), weightM);
+        sumOfWeightsM += weightM;
     }
-    MG5->SetLineColor(kBlue);
-    //MG5->GetXaxis()->SetTitle("cosThetaZ*");
     
+    // Set the line color of the MG5 histogram
+    MG5->SetLineColor(kBlue);
+
+    // Normalize the histograms by the sum of weights
     powheg->Scale(1.0 / sumOfWeightsP);
     MG5->Scale(1.0 / sumOfWeightsM);
 
-	double integral = powheg->Integral(1, powheg->GetNbinsX());
-
-	cout << integral << endl;
-
+    // Create a THStack to stack the histograms
     THStack *histStack = new THStack("histStack", "cosThetaZ*");
 
+    // Add the histograms to the stack
     histStack->Add(powheg);
     histStack->Add(MG5);
 
+    // Create a canvas to draw the histogram
     TCanvas* canvasZ = new TCanvas("canvasZ", "Histogram Canvas Z", 1200, 800);
+
+    // Draw the stacked histogram on the canvas
     histStack->Draw("nostack");
 
+    // Create a legend to display the histogram labels
     TLegend *legend = new TLegend(0.8, 0.8, 0.9, 0.9);
     legend->AddEntry(powheg, "powheg");
     legend->AddEntry(MG5, "MG5");
     legend->Draw();
 
-    canvasZ->SaveAs("GENcosThetaZ*.pdf");
+    // Save the canvas as a PDF file
+    canvasZ->SaveAs("cosThetaZ*.pdf");
 
     delete powheg;
     delete MG5;
@@ -81,7 +97,7 @@ void plotHistogramZ()
     inputM->Close();
 }
 
-
+//Same as previous function but for X and Y
 
 void plotHistogramX()
 {
