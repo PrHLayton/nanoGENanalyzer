@@ -637,11 +637,6 @@ switch (value) {
  
 	//angles reconstruction at LHE level
 
-
-      
-      sinTheta = calculate_sinTheta(Wboson, top, qSpec);
-      cosThetaZ = calculate_cosThetaZ(Wboson, top, qSpec);
-
 	if( ref==2){
 
       cosThetaZStar = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
@@ -650,12 +645,12 @@ switch (value) {
 
 		   }
 
-	else
-{
+	else{
+
       cosThetaZStar = calculate_cosThetaZStarW(SelectedGenDressedLepton_lead, Wboson, top);
       cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
       cosThetaYStar = calculate_cosThetaYStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
-}
+	    }
 
        LHE_lepton.Boost(InvariantTopBoost);
        LHE_specQ.Boost(InvariantTopBoost);

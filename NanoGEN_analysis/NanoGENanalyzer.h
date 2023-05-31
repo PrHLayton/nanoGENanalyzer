@@ -986,7 +986,10 @@ double calculate_sinThetaStar(TLorentzVector lepton, TLorentzVector Wboson)
    return sinThetaStar;
 }
 
-//functions that calculate cosTheta* in the rest frame of the top quark, projected in the Z, X or Y direction where Z is the direction of the spectator quark 
+
+
+
+//functions that calculate cosTheta* in the rest frame of the top quark, projected in the Z, X or Y direction where Z is the direction of the spectator quark (new reference frame) 
 
 double calculate_cosThetaZStar(TLorentzVector lepton, TLorentzVector top, TLorentzVector qSpec)
 {
@@ -1070,6 +1073,8 @@ double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    return cosThetaYStar;
 }
 
+
+//functions that calculate cosTheta* in the rest frame of the top quark, projected in the Z, X or Y direction where Z is the direction of the W boson (old reference frame)
 
 
 
