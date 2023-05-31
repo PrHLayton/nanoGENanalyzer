@@ -1070,6 +1070,82 @@ double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    return cosThetaYStar;
 }
 
+
+
+
+double calculate_cosThetaZStarW(TLorentzVector lepton, TLorentzVector Wboson, TLorentzVector top)
+{
+   double cosThetaZStar;
+
+   TVector3 InvariantTopBoost;
+   InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
+
+   Wboson.Boost(InvariantTopBoost);
+   lepton.Boost(InvariantTopBoost);
+
+   TVector3 Zdir = Wboson.Vect().Unit();
+   TVector3 leptonUnitary = lepton.Vect().Unit();
+
+   cosThetaZStar = leptonUnitary.Dot(Zdir);
+
+   return cosThetaZStar;
+}
+
+double calculate_cosThetaXStarW(TLorentzVector lepton, TLorentzVector Wboson, TLorentzVector qSpec, TLorentzVector top)
+{
+   double cosThetaXStar;
+
+   TVector3 InvariantTopBoost;
+   InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
+
+   Wboson.Boost(InvariantTopBoost);
+   lepton.Boost(InvariantTopBoost);
+   qSpec.Boost(InvariantTopBoost);
+
+   TVector3 Zdir = Wboson.Vect().Unit();
+   TVector3 qSpecUnit = qSpec.Vect().Unit();
+   TVector3 Ydir = qSpecUnit.Cross(Zdir).Unit();
+   TVector3 Xdir = Ydir.Cross(Zdir);
+   TVector3 leptonUnitary = lepton.Vect().Unit();
+
+   cosThetaXStar = leptonUnitary.Dot(Xdir);
+
+   return cosThetaXStar;
+}
+
+double calculate_cosThetaYStarW(TLorentzVector lepton, TLorentzVector Wboson, TLorentzVector qSpec, TLorentzVector top)
+{
+   double cosThetaYStar;
+
+   TVector3 InvariantTopBoost;
+   InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
+
+   Wboson.Boost(InvariantTopBoost);
+   lepton.Boost(InvariantTopBoost);
+   qSpec.Boost(InvariantTopBoost);
+
+   TVector3 Zdir = Wboson.Vect().Unit();
+   TVector3 qSpecUnit = qSpec.Vect().Unit();
+   TVector3 Ydir = qSpecUnit.Cross(Zdir).Unit();
+   TVector3 Xdir = Ydir.Cross(Zdir);
+   TVector3 leptonUnitary = lepton.Vect().Unit();
+
+   cosThetaYStar = leptonUnitary.Dot(Ydir);
+
+   return cosThetaYStar;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 double calculate_sinPhiStar(TLorentzVector lepton, TLorentzVector Wboson, TLorentzVector qSpec)
 {
    double sinPhiStar;
