@@ -48,7 +48,7 @@ void NanoGENanalyzer::Loop()
    // const float xSec = 35.8253;
    // sumOf_genWeights_beforeAnalysis = 1.94133e+08 ;
 
-   TFile* fOutput = new TFile("essai.root","RECREATE");
+   TFile* fOutput = new TFile("bump_def_Z.root","RECREATE");
    const float xSec = 35.4209;
    // sumOf_genWeights_beforeAnalysis = 1.75335e+08;
 
@@ -257,27 +257,10 @@ void NanoGENanalyzer::Loop()
    GENoutput->Branch("GENweight", &GENweight, "GENweight/D");
    GENoutput->Branch("LHEweight", &LHEweight, "LHEweight/D");
 
+    int ref;
 
- if(sumOf_genWeights_beforeAnalysis == 0.0)
-   {
-
-      for (Long64_t jentry=0; jentry<nentries;jentry++)
-      {
-         Long64_t ientry = LoadTree(jentry);
-         if (ientry < 0) break;
-         nb = fChain->GetEntry(jentry);   nbytes += nb;
-         // std::cout << "nb = " << nb << std::endl;
-         // if (Cut(ientry) < 0) continue;
-
-         if(jentry%1000000==0) std::cout<<"weights loop "<<jentry<<std::endl;
-         // if(jentry==1000000) break;
-
-         sumOf_genWeights_beforeAnalysis += genWeight;
-         sumOf_LHEweights_beforeAnalysis += LHEWeight_originalXWGTUP;
-   
-      }
-
-   }
+	cout << "Type 1 for Z in the W direction or 2 for Z in the spectator quark direction" << endl;
+	cin >> ref;
 
 
   
@@ -440,35 +423,23 @@ void NanoGENanalyzer::Loop()
 
       /*______________ANGLE RECONSTRUCTION______________*/
 
-      int value = 1;
+int value = 1;
 
-      switch(value) {
+switch (value) {
+    case 1:
 
-	case 1:	
+        sinTheta = calculate_sinTheta(Wboson, top, qSpec);
+        cosThetaZ = calculate_cosThetaZ(Wboson, top, qSpec);
 
-     int ref;
-
-	cout << "Type 1 for Z in the W direction or 2 for Z in the spectator quark direction" << endl;
-	cin >> ref;
-
-      
-      sinTheta = calculate_sinTheta(Wboson, top, qSpec);
-      cosThetaZ = calculate_cosThetaZ(Wboson, top, qSpec);
-
-	if( ref==2){
-
-      cosThetaZStar = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
-      cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);
-      cosThetaYStar = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top);
-
-		   }
-
-	else
-{
-      cosThetaZStar = calculate_cosThetaZStarW(SelectedGenDressedLepton_lead, top, qSpec);
-      cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, qSpec, top);
-      cosThetaYStar = calculate_cosThetaYStarW(SelectedGenDressedLepton_lead, qSpec, top);
-}
+        if (ref == 2) {
+            cosThetaZStar = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
+            cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);
+            cosThetaYStar = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top);
+        } else {
+            cosThetaZStar = calculate_cosThetaZStarW(SelectedGenDressedLepton_lead, Wboson, top);
+            cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
+            cosThetaYStar = calculate_cosThetaYStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
+        }
  
 
 		
@@ -666,16 +637,12 @@ void NanoGENanalyzer::Loop()
  
 	//angles reconstruction at LHE level
 
-     int Ref;
-
-	cout << "Type 1 for Z in the W direction or 2 for Z in the spectator quark direction" << endl;
-	cin >> Ref;
 
       
       sinTheta = calculate_sinTheta(Wboson, top, qSpec);
       cosThetaZ = calculate_cosThetaZ(Wboson, top, qSpec);
 
-	if( Ref==2){
+	if( ref==2){
 
       cosThetaZStar = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
       cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);
@@ -685,9 +652,9 @@ void NanoGENanalyzer::Loop()
 
 	else
 {
-      cosThetaZStar = calculate_cosThetaZStarW(SelectedGenDressedLepton_lead, top, qSpec);
-      cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, qSpec, top);
-      cosThetaYStar = calculate_cosThetaYStarW(SelectedGenDressedLepton_lead, qSpec, top);
+      cosThetaZStar = calculate_cosThetaZStarW(SelectedGenDressedLepton_lead, Wboson, top);
+      cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
+      cosThetaYStar = calculate_cosThetaYStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
 }
 
        LHE_lepton.Boost(InvariantTopBoost);
