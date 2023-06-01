@@ -259,7 +259,7 @@ void NanoGENanalyzer::Loop()
 
     int ref;
 
-	cout << "Type 1 for Z in the W direction or 2 for Z in the spectator quark direction" << endl;
+	cout << "Type 1 for Z in the W direction or 2 for Z in the spectator quark direction" << endl;		//ask the user for the reference frame wanted
 	cin >> ref;
 
 
@@ -425,6 +425,8 @@ void NanoGENanalyzer::Loop()
 
 int value = 1;
 
+//angle reconstruction at GEN level
+
 switch (value) {
     case 1:
 
@@ -433,11 +435,11 @@ switch (value) {
 
         if (ref == 2) {
             cosThetaZStar = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
-            cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);
+            cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);		//functions that calculates cosTheta* in the new reference frame
             cosThetaYStar = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top);
         } else {
             cosThetaZStar = calculate_cosThetaZStarW(SelectedGenDressedLepton_lead, Wboson, top);
-            cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
+            cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);	//functions that calculates cosTheta* in the old reference frame
             cosThetaYStar = calculate_cosThetaYStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
         }
  
@@ -640,7 +642,7 @@ switch (value) {
 	if( ref==2){
 
       cosThetaZStar = calculate_cosThetaZStar(SelectedGenDressedLepton_lead, top, qSpec);
-      cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);
+      cosThetaXStar = calculate_cosThetaXStar(SelectedGenDressedLepton_lead, qSpec, top);	//functions that calculates cosTheta* in the new reference frame
       cosThetaYStar = calculate_cosThetaYStar(SelectedGenDressedLepton_lead, qSpec, top);
 
 		   }
@@ -648,7 +650,7 @@ switch (value) {
 	else{
 
       cosThetaZStar = calculate_cosThetaZStarW(SelectedGenDressedLepton_lead, Wboson, top);
-      cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
+      cosThetaXStar = calculate_cosThetaXStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);	//functions that calculates cosTheta* in the old reference frame
       cosThetaYStar = calculate_cosThetaYStarW(SelectedGenDressedLepton_lead, Wboson, qSpec, top);
 	    }
 
