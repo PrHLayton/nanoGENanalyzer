@@ -1016,13 +1016,17 @@ double calculate_cosThetaXStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    TVector3 InvariantTopBoost;
    InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
 
-    //TVector3 labZdir(0, 0, 1);			  //define the direction of the incoming light quark that is set as the Z direction in the laboratory frame
-    //TVector3 lightQ = labZdir;			  //the commented and uncommented method give the same result
-    //if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;  //the commented method set a vector in the Z direction and the direction of the light quark is choosed if the dot product between the spectator 
+   TVector3 qSpecUnit = qSpec.Vect().Unit();	          //the uncommented method use the projection of the spectator quark in the Z direction in the laoratory frame
+   //TVector3 lightQ = qSpecUnit.Unit() * qSpec.Z();
+
+
+    TVector3 labZdir(0, 0, 1);			  //define the direction of the incoming light quark that is set as the Z direction in the laboratory frame
+    TVector3 lightQ = labZdir;			  //the commented and uncommented method give the same result
+    if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;  //the commented method set a vector in the Z direction and the direction of the light quark is choosed if the dot product between the spectator 
 							  //if the dot product between the spectator quark and Z is positive
 
-   TVector3 qSpecUnit = qSpec.Vect().Unit();	          //the uncommented method use the projection of the spectator quark in the Z direction in the laoratory frame
-   TVector3 lightQ = qSpecUnit.Unit() * qSpec.Z();
+   //TVector3 qSpecUnit = qSpec.Vect().Unit();	          //the uncommented method use the projection of the spectator quark in the Z direction in the laoratory frame
+   //TVector3 lightQ = qSpecUnit.Unit() * qSpec.Z();
 
    lepton.Boost(InvariantTopBoost);
    qSpec.Boost(InvariantTopBoost);
@@ -1049,12 +1053,14 @@ double calculate_cosThetaYStar(TLorentzVector lepton, TLorentzVector qSpec, TLor
    TVector3 InvariantTopBoost;
    InvariantTopBoost.SetXYZ(-top.Px()/top.E(),-top.Py()/top.E(),-top.Pz()/top.E());
 
-    //TVector3 labZdir(0, 0, 1);
-    //TVector3 lightQ = labZdir;
-    //if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;
     TVector3 qSpecUnit = qSpec.Vect().Unit();
+   //TVector3 lightQ = qSpecUnit.Unit() * qSpec.Z();
 
-   TVector3 lightQ = qSpecUnit.Unit() * qSpec.Z();
+
+    TVector3 labZdir(0, 0, 1);
+    TVector3 lightQ = labZdir;
+    if (qSpecUnit.Dot(labZdir) < 0) lightQ = -labZdir;
+
 
    lepton.Boost(InvariantTopBoost);
    qSpec.Boost(InvariantTopBoost);

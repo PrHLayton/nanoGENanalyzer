@@ -48,7 +48,7 @@ void NanoGENanalyzer::Loop()
    // const float xSec = 35.8253;
    // sumOf_genWeights_beforeAnalysis = 1.94133e+08 ;
 
-   TFile* fOutput = new TFile("bump_def_Z.root","RECREATE");
+   TFile* fOutput = new TFile("bump_new.root","RECREATE");
    const float xSec = 35.4209;
    // sumOf_genWeights_beforeAnalysis = 1.75335e+08;
 
@@ -343,8 +343,8 @@ void NanoGENanalyzer::Loop()
       for (unsigned int i=0; i<nGenJet; i++)
       {
 	      // std::cout << "Jet "<<i<<" pt="<<GenJet_pt[i]<<" eta="<<GenJet_eta[i]<<" hadronFlavour="<< (int)GenJet_hadronFlavour[i] <<endl;
-	      if(GenJet_pt[i]<40 || fabs(GenJet_eta[i])>4.7) continue;
-         if(fabs(GenJet_eta[i])>=2.4 && GenJet_pt[i]<60) continue;
+	      if(GenJet_pt[i]<40 || fabs(GenJet_eta[i])>4.5) continue;
+         if(fabs(GenJet_eta[i])<=2.4 && GenJet_pt[i]<60) continue;
 
 	      TLorentzVector jet;
 	      jet.SetPtEtaPhiM(GenJet_pt[i], GenJet_eta[i], GenJet_phi[i], GenJet_mass[i]);
