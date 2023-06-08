@@ -11,11 +11,11 @@
 void plotHistogramZ()
 {
     TH1F* powheg = new TH1F("powheg", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* inputP = new TFile("powOld.root", "read");
+    TFile* inputP = new TFile("new_LHE_POWHEG.root", "read");
     TTree* treeP = (TTree*)inputP->Get("GENoutput");
 
     TH1F* MG5 = new TH1F("MG5", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* inputM = new TFile("test2.root", "read");
+    TFile* inputM = new TFile("new_LHE_MG5.root", "read");
     TTree* treeM = (TTree*)inputM->Get("GENoutput");
 
     float cosThetaZStarM, cosThetaZStarP;
@@ -67,7 +67,7 @@ void plotHistogramZ()
     legend->AddEntry(MG5, "MG5");
     legend->Draw();
 
-    canvasZ->SaveAs("test2_cosThetaZ*.pdf");
+    canvasZ->SaveAs("LHE_new_cosThetaZ*.pdf");
 
     delete powheg;
     delete MG5;
@@ -80,11 +80,11 @@ void plotHistogramZ()
 void plotHistogramX()
 {
     TH1F* powheg = new TH1F("powheg", "cosThetaX*", 30, -1.0, 1.0);
-    TFile* inputP = new TFile("powOld.root", "read");
+    TFile* inputP = new TFile("new_LHE_POWHEG.root", "read");
     TTree* treeP = (TTree*)inputP->Get("GENoutput");
 
     TH1F* MG5 = new TH1F("MG5", "cosThetaX*", 30, -1.0, 1.0);
-    TFile* inputM = new TFile("test2.root", "read");
+    TFile* inputM = new TFile("new_LHE_MG5.root", "read");
     TTree* treeM = (TTree*)inputM->Get("GENoutput");
 
     float cosThetaXStarM, cosThetaXStarP;
@@ -137,7 +137,7 @@ void plotHistogramX()
     legend->AddEntry(MG5, "MG5");
     legend->Draw();
 
-    canvasX->SaveAs("test2_cosThetaX*.pdf");
+    canvasX->SaveAs("LHE_new_cosThetaX*.pdf");
 
     delete powheg;
     delete MG5;
@@ -149,11 +149,11 @@ void plotHistogramX()
 void plotHistogramY()
 {
     TH1F* powheg = new TH1F("powheg", "cosThetaY*", 30, -1.0, 1.0);
-    TFile* inputP = new TFile("powOld.root", "read");
+    TFile* inputP = new TFile("new_LHE_POWHEG.root", "read");
     TTree* treeP = (TTree*)inputP->Get("GENoutput");
 
     TH1F* MG5 = new TH1F("MG5", "cosThetaY*", 30, -1.0, 1.0);
-    TFile* inputM = new TFile("test2.root", "read");
+    TFile* inputM = new TFile("new_LHE_MG5.root", "read");
     TTree* treeM = (TTree*)inputM->Get("GENoutput");
 
     float cosThetaYStarM, cosThetaYStarP;
@@ -204,7 +204,7 @@ void plotHistogramY()
     legend->AddEntry(MG5, "MG5");
     legend->Draw();
 
-    canvasY->SaveAs("test2_cosThetaY*.pdf");
+    canvasY->SaveAs("LHE_new_cosThetaY*.pdf");
 
     delete powheg;
     delete MG5;

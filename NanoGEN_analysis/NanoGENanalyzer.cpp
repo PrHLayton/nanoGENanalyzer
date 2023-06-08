@@ -48,7 +48,7 @@ void NanoGENanalyzer::Loop()
    // const float xSec = 35.8253;
    // sumOf_genWeights_beforeAnalysis = 1.94133e+08 ;
 
-   TFile* fOutput = new TFile("bump_new.root","RECREATE");
+   TFile* fOutput = new TFile("ZW_output_cptbi_m5.root","RECREATE");
    const float xSec = 35.4209;
    // sumOf_genWeights_beforeAnalysis = 1.75335e+08;
 
@@ -343,8 +343,8 @@ void NanoGENanalyzer::Loop()
       for (unsigned int i=0; i<nGenJet; i++)
       {
 	      // std::cout << "Jet "<<i<<" pt="<<GenJet_pt[i]<<" eta="<<GenJet_eta[i]<<" hadronFlavour="<< (int)GenJet_hadronFlavour[i] <<endl;
-	      if(GenJet_pt[i]<40 || fabs(GenJet_eta[i])>4.5) continue;
-         if(fabs(GenJet_eta[i])<=2.4 && GenJet_pt[i]<60) continue;
+	      if(GenJet_pt[i]<40 || fabs(GenJet_eta[i])>4.7) continue;
+         if(fabs(GenJet_eta[i])<=2.4 && GenJet_pt[i]<70) continue;
 
 	      TLorentzVector jet;
 	      jet.SetPtEtaPhiM(GenJet_pt[i], GenJet_eta[i], GenJet_phi[i], GenJet_mass[i]);
@@ -387,14 +387,6 @@ void NanoGENanalyzer::Loop()
          }
       }
 
-      // std::cout<<"atLeastOneBjet="<<atLeastOneBjet<<endl;
-
-
-      // std::cout<<"Passed 1st Selection"<<endl;
-      // std::cout<<"Non b Jet to keep pt="<<qSpec.Pt()<<" eta="<<qSpec.Eta()<<endl;
-      // std::cout<<"b Jet to keep pt="<<bJet.Pt()<<" eta="<<bJet.Eta()<<endl;
-      // std::cout<<"Number of b jets = "<<nbOfBjets<<endl;
-      // std::cout<<"Lepton to keep pT= "<<SelectedGenDressedLepton_lead.Pt()<<" eta = "<<SelectedGenDressedLepton_lead.Eta()<<endl;
 
       reconstructW(&Wboson, &neutrino, SelectedGenDressedLepton_lead, met_pt, met_phi, &isRealSolution, &isNotAValidReco);
          
@@ -404,21 +396,6 @@ void NanoGENanalyzer::Loop()
       if( nSelectedGenDressedLepton>2 || nSelectedGenDressedLepton==0 || nSelectedGenJet<2 || !atLeastOneBjet || nbOfBjets>1) continue;
 
 
-      // ReconstructW_Streco(&Wboson_Streco, &neutrino_Streco, SelectedGenDressedLepton_lead, met_pt, met_phi, &isRealSolution_Streco, &p4nu_LHE_leptonus, &p4nu_minus);
-
-      // top_Streco = bJet + Wboson_Streco;
-
-      // if(isRealSolution_Streco) nbOfRealSolutions_Streco += 1;
-      // else nbOfComLHE_leptonexSolutions_Streco +=1;
-
-
-      // cout<<"W boson pt= "<<Wboson.Pt()<<" W boson Eta= "<<Wboson.Eta()<<" W boson Phi= "<<Wboson.Phi()<<" W boson mass= "<<Wboson.M()<<endl;
-      // cout<<"neutrino pt= "<<neutrino.Pt()<<" neutrino Eta= "<<neutrino.Eta()<<" neutrino Phi= "<<neutrino.Phi()<<endl;
-      // cout<<"top pt= "<<top.Pt()<<" top Eta= "<<top.Eta()<<" top Phi= "<<top.Phi()<<" top mass= "<<top.M()<<endl;
-
-      // cout<<"W boson Streco pt= "<<Wboson_Streco.Pt()<<" W boson Streco Eta= "<<Wboson_Streco.Eta()<<" W boson Streco Phi= "<<Wboson_Streco.Phi()<<" W boson Streco mass= "<<Wboson_Streco.M()<<endl;
-      // cout<<"neutrino Streco pt= "<<neutrino_Streco.Pt()<<" neutrino Streco Eta= "<<neutrino_Streco.Eta()<<" neutrino Streco Phi= "<<neutrino_Streco.Phi()<<endl;
-      // cout<<"top Streco pt= "<<top_Streco.Pt()<<" top Streco Eta= "<<top_Streco.Eta()<<" top Streco Phi= "<<top_Streco.Phi()<<" top Streco mass= "<<top_Streco.M()<<endl;
 
 
       /*______________ANGLE RECONSTRUCTION______________*/
@@ -627,12 +604,13 @@ switch (value) {
        InvariantTopBoost.SetXYZ(-LHE_topQ.Px()/LHE_topQ.E(),-LHE_topQ.Py()/LHE_topQ.E(),-LHE_topQ.Pz()/LHE_topQ.E());
 
 
-         if ((LHE_lepton.Pt()<=30 || TMath::Abs(LHE_lepton.Eta())>=2.47) && nature_lepton_LHE==1.0) continue; //Electron Streco Selection
-	    if ((TMath::Abs(LHE_lepton.Eta())<=1.37 || TMath::Abs(LHE_lepton.Eta())>=1.52) && nature_lepton_LHE==1.0) continue; //Electron Streco 2nd Selection
-       if ((LHE_lepton.Pt()<=30 || TMath::Abs(LHE_lepton.Eta())>=2.5) && nature_lepton_LHE==2.0) continue; //Muon Streco Selection
-       if (LHE_specQ.Pt()<=35 || TMath::Abs(LHE_specQ.Eta())>=3.5 || TMath::Abs(LHE_specQ.Eta())<=2.75) continue; //Jet 1st selection
-       if (LHE_bQuark.Pt()<=35 || TMath::Abs(LHE_bQuark.Eta())>=2.5) continue; //b jetStreco Selection 
-       if (met_pt <= 35) continue; 
+         if ((LHE_lepton.Pt()<35 || TMath::Abs(LHE_lepton.Eta())>1.479) && nature_lepton_LHE==1.0) continue; //Electron Streco Selection
+	  //  if ((TMath::Abs(LHE_lepton.Eta())<=1.37 || TMath::Abs(LHE_lepton.Eta())>=1.52) && nature_lepton_LHE==1.0) continue; //Electron Streco 2nd Selection
+       if ((LHE_lepton.Pt()<26 || TMath::Abs(LHE_lepton.Eta())>2.4) && nature_lepton_LHE==2.0) continue; //Muon Streco Selection
+       if (LHE_specQ.Pt()<40 || TMath::Abs(LHE_specQ.Eta())>4.7) continue; //Jet 1st selection
+       if ( TMath::Abs(LHE_specQ.Eta()) < 3.0 && 2.7 < TMath::Abs(LHE_specQ.Eta()) && LHE_specQ.Pt() < 60) continue;
+       if (LHE_bQuark.Pt()<40 || TMath::Abs(LHE_bQuark.Eta())>2.4) continue; //b jetStreco Selection 
+
        deltaR_lepton_bQuark_LHElevel = LHE_lepton.DeltaR(LHE_bQuark);
        deltaR_lepton_specQ_LHElevel = LHE_lepton.DeltaR(LHE_specQ);
 
