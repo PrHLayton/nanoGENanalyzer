@@ -92,134 +92,134 @@ void plotHistogramZ()
 
 void plotHistogramX()
 {
-TH1F* powheg = new TH1F("powheg", "cosThetaX*", 30, -1.0, 1.0);
-TH1F* MG5 = new TH1F("MG5", "cosThetaX*", 30, -1.0, 1.0);
+	TH1F* powheg = new TH1F("powheg", "cosThetaX*", 30, -1.0, 1.0);
+	TH1F* MG5 = new TH1F("MG5", "cosThetaX*", 30, -1.0, 1.0);
 
-TFile* inputP = new TFile("ZW_LHE_POWHEG.root", "read");
-TFile* inputM = new TFile("ZW_LHE_MG5.root", "read");
+	TFile* inputP = new TFile("ZW_LHE_POWHEG.root", "read");
+	TFile* inputM = new TFile("ZW_LHE_MG5.root", "read");
 
-TTree* treeP = (TTree*)inputP->Get("LHE");
-TTree* treeM = (TTree*)inputM->Get("LHE");
+	TTree* treeP = (TTree*)inputP->Get("LHE");
+	TTree* treeM = (TTree*)inputM->Get("LHE");
 
-float cosThetaXStarM, cosThetaXStarP;
-double weightM, weightP;
+	float cosThetaXStarM, cosThetaXStarP;
+	double weightM, weightP;
 
-treeP->SetBranchAddress("cosThetaXStar", &cosThetaXStarP);
-treeP->SetBranchAddress("LHEweight", &weightP);
-treeM->SetBranchAddress("cosThetaXStar", &cosThetaXStarM);
-treeM->SetBranchAddress("LHEweight", &weightM);
+	treeP->SetBranchAddress("cosThetaXStar", &cosThetaXStarP);
+	treeP->SetBranchAddress("LHEweight", &weightP);
+	treeM->SetBranchAddress("cosThetaXStar", &cosThetaXStarM);
+	treeM->SetBranchAddress("LHEweight", &weightM);
 
-Long64_t pow_entries = treeP->GetEntries();
-double sumOfWeightsP = 0;
+	Long64_t pow_entries = treeP->GetEntries();
+	double sumOfWeightsP = 0;
 
-for (Long64_t i = 0; i < pow_entries; i++)
-{
-    treeP->GetEntry(i);
-    powheg->Fill(cosThetaXStarP, weightP);
-    sumOfWeightsP += weightP;
-}
+	for (Long64_t i = 0; i < pow_entries; i++)
+	{
+	    treeP->GetEntry(i);
+	    powheg->Fill(cosThetaXStarP, weightP);
+	    sumOfWeightsP += weightP;
+	}
 
-powheg->SetLineColor(kRed);
+	powheg->SetLineColor(kRed);
 
-Long64_t MG5_entries = treeM->GetEntries();
-double sumOfWeightsM = 0;
+	Long64_t MG5_entries = treeM->GetEntries();
+	double sumOfWeightsM = 0;
 
-for (Long64_t i = 0; i < MG5_entries; i++)
-{
-    treeM->GetEntry(i);
-    MG5->Fill(cosThetaXStarM, weightM);
-    sumOfWeightsM += weightM;
-}
+	for (Long64_t i = 0; i < MG5_entries; i++)
+	{
+	    treeM->GetEntry(i);
+	    MG5->Fill(cosThetaXStarM, weightM);
+	    sumOfWeightsM += weightM;
+	}
 
-MG5->SetLineColor(kBlue);
+	MG5->SetLineColor(kBlue);
 
-powheg->Scale(1.0 / sumOfWeightsP);
-MG5->Scale(1.0 / sumOfWeightsM);
+	powheg->Scale(1.0 / sumOfWeightsP);
+	MG5->Scale(1.0 / sumOfWeightsM);
 
-TCanvas* canvasX = new TCanvas("canvasX", "Histogram Canvas X", 1200, 800);
+	TCanvas* canvasX = new TCanvas("canvasX", "Histogram Canvas X", 1200, 800);
 
-MG5->SetStats(0);
-MG5->Draw("E");
-powheg->Draw("same");
+	MG5->SetStats(0);
+	MG5->Draw("E");
+	powheg->Draw("same");
 
-TLegend* legend = new TLegend(0.8, 0.8, 0.9, 0.9);
-legend->AddEntry(powheg, "powheg");
-legend->AddEntry(MG5, "MG5");
-legend->Draw();
+	TLegend* legend = new TLegend(0.8, 0.8, 0.9, 0.9);
+	legend->AddEntry(powheg, "powheg");
+	legend->AddEntry(MG5, "MG5");
+	legend->Draw();
 
-canvasX->SaveAs("LHE_ZW_cosThetaX*.pdf");
+	canvasX->SaveAs("LHE_ZW_cosThetaX*.pdf");
 
-delete powheg;
-delete MG5;
-inputP->Close();
-inputM->Close();
+	delete powheg;
+	delete MG5;
+	inputP->Close();
+	inputM->Close();
 
 }
 
 
 void plotHistogramY()
 {
-TH1F* powheg = new TH1F("powheg", "cosThetaY*", 30, -1.0, 1.0);
-TH1F* MG5 = new TH1F("MG5", "cosThetaY*", 30, -1.0, 1.0);
+	TH1F* powheg = new TH1F("powheg", "cosThetaY*", 30, -1.0, 1.0);
+	TH1F* MG5 = new TH1F("MG5", "cosThetaY*", 30, -1.0, 1.0);
 
-TFile* inputP = new TFile("ZW_LHE_POWHEG.root", "read");
-TFile* inputM = new TFile("ZW_LHE_MG5.root", "read");
+	TFile* inputP = new TFile("ZW_LHE_POWHEG.root", "read");
+	TFile* inputM = new TFile("ZW_LHE_MG5.root", "read");
 
-TTree* treeP = (TTree*)inputP->Get("LHE");
-TTree* treeM = (TTree*)inputM->Get("LHE");
+	TTree* treeP = (TTree*)inputP->Get("LHE");
+	TTree* treeM = (TTree*)inputM->Get("LHE");
 
-float cosThetaYStarM, cosThetaYStarP;
-double weightM, weightP;
+	float cosThetaYStarM, cosThetaYStarP;
+	double weightM, weightP;
 
-treeP->SetBranchAddress("cosThetaYStar", &cosThetaYStarP);
-treeP->SetBranchAddress("LHEweight", &weightP);
-treeM->SetBranchAddress("cosThetaYStar", &cosThetaYStarM);
-treeM->SetBranchAddress("LHEweight", &weightM);
+	treeP->SetBranchAddress("cosThetaYStar", &cosThetaYStarP);
+	treeP->SetBranchAddress("LHEweight", &weightP);
+	treeM->SetBranchAddress("cosThetaYStar", &cosThetaYStarM);
+	treeM->SetBranchAddress("LHEweight", &weightM);
 
-Long64_t pow_entries = treeP->GetEntries();
-double sumOfWeightsP = 0;
+	Long64_t pow_entries = treeP->GetEntries();
+	double sumOfWeightsP = 0;
 
-for (Long64_t i = 0; i < pow_entries; i++)
-{
-    treeP->GetEntry(i);
-    powheg->Fill(cosThetaYStarP, weightP);
-    sumOfWeightsP += weightP;
-}
+	for (Long64_t i = 0; i < pow_entries; i++)
+	{
+	    treeP->GetEntry(i);
+	    powheg->Fill(cosThetaYStarP, weightP);
+	    sumOfWeightsP += weightP;
+	}
 
-powheg->SetLineColor(kRed);
+	powheg->SetLineColor(kRed);
 
-Long64_t MG5_entries = treeM->GetEntries();
-double sumOfWeightsM = 0;
+	Long64_t MG5_entries = treeM->GetEntries();
+	double sumOfWeightsM = 0;
 
-for (Long64_t i = 0; i < MG5_entries; i++)
-{
-    treeM->GetEntry(i);
-    MG5->Fill(cosThetaYStarM, weightM);
-    sumOfWeightsM += weightM;
-}
+	for (Long64_t i = 0; i < MG5_entries; i++)
+	{
+	    treeM->GetEntry(i);
+	    MG5->Fill(cosThetaYStarM, weightM);
+	    sumOfWeightsM += weightM;
+	}
 
-MG5->SetLineColor(kBlue);
+	MG5->SetLineColor(kBlue);
 
-powheg->Scale(1.0 / sumOfWeightsP);
-MG5->Scale(1.0 / sumOfWeightsM);
+	powheg->Scale(1.0 / sumOfWeightsP);
+	MG5->Scale(1.0 / sumOfWeightsM);
 
-TCanvas* canvasY = new TCanvas("canvasY", "Histogram Canvas Y", 1200, 800);
+	TCanvas* canvasY = new TCanvas("canvasY", "Histogram Canvas Y", 1200, 800);
 
-MG5->SetStats(0);
-MG5->Draw("E");
-powheg->Draw("same");
+	MG5->SetStats(0);
+	MG5->Draw("E");
+	powheg->Draw("same");
 
-TLegend* legend = new TLegend(0.8, 0.8, 0.9, 0.9);
-legend->AddEntry(powheg, "powheg");
-legend->AddEntry(MG5, "MG5");
-legend->Draw();
+	TLegend* legend = new TLegend(0.8, 0.8, 0.9, 0.9);
+	legend->AddEntry(powheg, "powheg");
+	legend->AddEntry(MG5, "MG5");
+	legend->Draw();
 
-canvasY->SaveAs("LHE_ZW_cosThetaY*.pdf");
+	canvasY->SaveAs("LHE_ZW_cosThetaY*.pdf");
 
-delete powheg;
-delete MG5;
-inputP->Close();
-inputM->Close();
+	delete powheg;
+	delete MG5;
+	inputP->Close();
+	inputM->Close();
 
 }
 

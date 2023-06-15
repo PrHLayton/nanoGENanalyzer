@@ -11,7 +11,7 @@
 void plotHistogramZ()
 {
     TH1F* SM = new TH1F("SM", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* input_SM = new TFile("bump.root", "read");
+    TFile* input_SM = new TFile("bump_new.root", "read");
     TTree* tree_SM = (TTree*)input_SM->Get("GENoutput");
 
     TH1F* cbwi_p2 = new TH1F("cbwi_p2", "cosThetaZ*", 30, -1.0, 1.0);
@@ -29,13 +29,13 @@ void plotHistogramZ()
     TH1F* ctwi_m2 = new TH1F("ctwi_m2", "cosThetaZ*", 30, -1.0, 1.0);
     TFile* input_ctwi_m2 = new TFile("ZW_output_ctwi_m2.root", "read");
     TTree* tree_ctwi_m2 = (TTree*)input_ctwi_m2->Get("GENoutput");
-
+	    
     TH1F* cptbi_m5 = new TH1F("cptbi_m5", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* input_cptbi_m5 = new TFile("ZW_output_cptbi_m5.root", "read");
+    TFile* input_cptbi_m5 = new TFile("output_cptbi_m5.root", "read");
     TTree* tree_cptbi_m5 = (TTree*)input_cptbi_m5->Get("GENoutput");
 
     TH1F* cptbi_p5 = new TH1F("cptbi_p5", "cosThetaZ*", 30, -1.0, 1.0);
-    TFile* input_cptbi_p5 = new TFile("ZW_output_cptbi_m5.root", "read");
+    TFile* input_cptbi_p5 = new TFile("output_cptbi_p5.root", "read");
     TTree* tree_cptbi_p5 = (TTree*)input_cptbi_p5->Get("GENoutput");
 
     float cosThetaZStar;
@@ -51,8 +51,10 @@ void plotHistogramZ()
     tree_ctwi_m2->SetBranchAddress("sumOf_genWeights", &weight);
     tree_cbwi_m2->SetBranchAddress("cosThetaZStar", &cosThetaZStar);
     tree_cbwi_m2->SetBranchAddress("sumOf_genWeights", &weight);
+    tree_cptbi_m5->SetBranchAddress("cosThetaZStar", &cosThetaZStar);
     tree_cptbi_m5->SetBranchAddress("sumOf_genWeights", &weight);
     tree_cptbi_p5->SetBranchAddress("sumOf_genWeights", &weight);
+    tree_cptbi_p5->SetBranchAddress("cosThetaZStar", &cosThetaZStar);
 
 
     Long64_t SM_entries = tree_SM->GetEntries();
@@ -170,7 +172,7 @@ void plotHistogramZ()
     legend->AddEntry(cptbi_p5, "cptbi_p5");
     legend->Draw();
 
-    canvasZ->SaveAs("GEN_ZW_cptbi_pm5_cosThetaZ*.pdf");
+    canvasZ->SaveAs("GEN_new_cptbi_pm5_cosThetaZ*.pdf");
 
     delete SM;
     delete cbwi_p2;
@@ -192,7 +194,7 @@ void plotHistogramZ()
 void plotHistogramX()
 {
     TH1F* SM = new TH1F("SM", "cosThetaX*", 30, -1.0, 1.0);
-    TFile* input_SM = new TFile("bump.root", "read");
+    TFile* input_SM = new TFile("bump_new.root", "read");
     TTree* tree_SM = (TTree*)input_SM->Get("GENoutput");
 
     TH1F* cbwi_p2 = new TH1F("cbwi_p2", "cosThetaX*", 30, -1.0, 1.0);
@@ -212,11 +214,11 @@ void plotHistogramX()
     TTree* tree_ctwi_m2 = (TTree*)input_ctwi_m2->Get("GENoutput");
 
     TH1F* cptbi_m5 = new TH1F("cptbi_m5", "cosThetaX*", 30, -1.0, 1.0);
-    TFile* input_cptbi_m5 = new TFile("ZW_output_cptbi_m5.root", "read");
+    TFile* input_cptbi_m5 = new TFile("output_cptbi_m5.root", "read");
     TTree* tree_cptbi_m5 = (TTree*)input_cptbi_m5->Get("GENoutput");
 
     TH1F* cptbi_p5 = new TH1F("cptbi_p5", "cosThetaX*", 30, -1.0, 1.0);
-    TFile* input_cptbi_p5 = new TFile("ZW_output_cptbi_m5.root", "read");
+    TFile* input_cptbi_p5 = new TFile("output_cptbi_p5.root", "read");
     TTree* tree_cptbi_p5 = (TTree*)input_cptbi_p5->Get("GENoutput");
 
     float cosThetaXStar;
@@ -343,7 +345,7 @@ void plotHistogramX()
     cptbi_p5->Draw("same");
 
 
-    TLegend *legend = new TLegend(0.3, 0.8, 0.5, 0.9);
+    TLegend *legend = new TLegend(0.5, 0.8, 0.7, 0.9);
     legend->AddEntry(SM, "SM");
     //legend->AddEntry(cbwi_p2, "cbwi_p2");
     //legend->AddEntry(ctwi_p2, "ctwi_p2");
@@ -353,7 +355,7 @@ void plotHistogramX()
     legend->AddEntry(cptbi_p5, "cptbi_p5");
     legend->Draw();
 
-    canvasX->SaveAs("GEN_ZW_cptbi_pm5_cosThetaX*.pdf");
+    canvasX->SaveAs("GEN_new_cptbi_pm5_cosThetaX*.pdf");
 
     delete SM;
     delete cbwi_p2;
@@ -375,7 +377,7 @@ void plotHistogramX()
 void plotHistogramY()
 {
     TH1F* SM = new TH1F("SM", "cosThetaY*", 30, -1.0, 1.0);
-    TFile* input_SM = new TFile("bump.root", "read");
+    TFile* input_SM = new TFile("bump_new.root", "read");
     TTree* tree_SM = (TTree*)input_SM->Get("GENoutput");
 
     TH1F* cbwi_p2 = new TH1F("cbwi_p2", "cosThetaY*", 30, -1.0, 1.0);
@@ -395,11 +397,11 @@ void plotHistogramY()
     TTree* tree_ctwi_m2 = (TTree*)input_ctwi_m2->Get("GENoutput");
 
     TH1F* cptbi_m5 = new TH1F("cptbi_m5", "cosThetaY*", 30, -1.0, 1.0);
-    TFile* input_cptbi_m5 = new TFile("ZW_output_cptbi_m5.root", "read");
+    TFile* input_cptbi_m5 = new TFile("output_cptbi_m5.root", "read");
     TTree* tree_cptbi_m5 = (TTree*)input_cptbi_m5->Get("GENoutput");
 
     TH1F* cptbi_p5 = new TH1F("cptbi_p5", "cosThetaY*", 30, -1.0, 1.0);
-    TFile* input_cptbi_p5 = new TFile("ZW_output_cptbi_m5.root", "read");
+    TFile* input_cptbi_p5 = new TFile("output_cptbi_p5.root", "read");
     TTree* tree_cptbi_p5 = (TTree*)input_cptbi_p5->Get("GENoutput");
 
     float cosThetaYStar;
@@ -536,7 +538,7 @@ void plotHistogramY()
     legend->AddEntry(cptbi_p5, "cptbi_p5");
     legend->Draw();
 
-    canvasY->SaveAs("GEN_ZW_cptbi_pm5_cosThetaY*.pdf");
+    canvasY->SaveAs("GEN_new_cptbi_pm5_cosThetaY*.pdf");
 
     delete SM;
     delete cbwi_p2;

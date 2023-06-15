@@ -54,13 +54,9 @@ void plotHistogramZ()
     powheg->Scale(1.0 / sumOfWeightsP);
     MG5->Scale(1.0 / sumOfWeightsM);
 
-    THStack *histStack = new THStack("histStack", "cosThetaZ*");
-
-    histStack->Add(powheg);
-    histStack->Add(MG5);
-
     TCanvas* canvasZ = new TCanvas("canvasZ", "Histogram Canvas Z", 1200, 800);
-    histStack->Draw("nostack");
+    MG5->Draw("E");
+    powheg->Draw("same");
 
     TLegend *legend = new TLegend(0.8, 0.8, 0.9, 0.9);
     legend->AddEntry(powheg, "powheg");
@@ -124,13 +120,9 @@ void plotHistogramX()
     powheg->Scale(1.0 / sumOfWeightsP);
     MG5->Scale(1.0 / sumOfWeightsM);
 
-    THStack *histStack = new THStack("histStack", "cosThetaX*");
-
-    histStack->Add(powheg);
-    histStack->Add(MG5);
-
     TCanvas* canvasX = new TCanvas("canvasX", "Histogram Canvas X", 1200, 800);
-    histStack->Draw("nostack");
+    MG5->Draw("E");
+    powheg->Draw("same");
 
     TLegend *legend = new TLegend(0.8, 0.8, 0.9, 0.9);
     legend->AddEntry(powheg, "powheg");
@@ -191,13 +183,9 @@ void plotHistogramY()
     powheg->Scale(1.0 / sumOfWeightsP);
     MG5->Scale(1.0 / sumOfWeightsM);
 
-    THStack *histStack = new THStack("histStack", "cosThetaY*");
-
-    histStack->Add(powheg);
-    histStack->Add(MG5);
-
     TCanvas* canvasY = new TCanvas("canvasY", "Histogram Canvas Y", 1200, 800);
-    histStack->Draw("nostack");
+    MG5->Draw("E");
+    powheg->Draw("same");
 
     TLegend *legend = new TLegend(0.8, 0.8, 0.9, 0.9);
     legend->AddEntry(powheg, "powheg");
