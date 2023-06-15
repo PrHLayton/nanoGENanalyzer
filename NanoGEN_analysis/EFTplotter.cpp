@@ -6,7 +6,7 @@
 #include <THStack.h>
 #include "TLegend.h"
 
-
+//These functions produce histograms from MG5 samples generated with non-zero Wilson coefficients
 
 void plotHistogramZ()
 {

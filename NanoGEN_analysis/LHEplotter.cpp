@@ -8,8 +8,8 @@
 #include <iostream>
 using namespace std;
 
-// This function produces a stacked histogram of the distribution of the variable "cosThetaZ*" 
-// for two different simulations called "powheg" and "MG5", and saves the plot as a PDF file.
+// This function produces 2 histograms of the distribution of cosThetaZ* on a canvas 
+// using data from MG5 and POWHEG, and saves the plot as a PDF file.
 // The histograms are normalized using the sum of their weights.
 
 void plotHistogramZ()

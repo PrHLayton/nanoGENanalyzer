@@ -6,7 +6,7 @@
 #include <THStack.h>
 #include "TLegend.h"
 
-
+//These functions produce histograms from data analysed at GEN level
 
 void plotHistogramZ()
 {

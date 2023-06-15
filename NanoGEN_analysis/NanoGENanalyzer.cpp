@@ -167,8 +167,6 @@ void NanoGENanalyzer::Loop()
    GENoutput->Branch("lepton_eta",&lepton_eta,"lepton_eta/F");
    GENoutput->Branch("lepton_phi",&lepton_phi,"lepton_phi/F");
 
-
-
    GENoutput->Branch("top_pt",&top_pt,"top_pt/F");
    GENoutput->Branch("top_eta",&top_eta,"top_eta/F");
    GENoutput->Branch("top_phi",&top_phi,"top_phi/F");
@@ -193,7 +191,6 @@ void NanoGENanalyzer::Loop()
    GENoutput->Branch("W_phi",&W_phi,"W_phi/F");
    GENoutput->Branch("W_mass", &W_mass, "W_mass/F");
    GENoutput->Branch("W_transverse_mass", &W_transverse_mass, "W_transverse_mass/F");
-
 
 
    GENoutput_Real->Branch("cosThetaZ_Real",&cosThetaZ_Real,"cosThetaZ_Real/F");
@@ -259,7 +256,7 @@ void NanoGENanalyzer::Loop()
 
     int ref;
 
-	cout << "Type 1 for Z in the W direction or 2 for Z in the spectator quark direction" << endl;		//ask the user for the reference frame wanted
+	cout << "Type 1 for the old reference frame (Z=W) or 2 for the new reference frame (Z=qSpec)" << endl;		//ask the user for the reference frame 
 	cin >> ref;
 
 
@@ -531,18 +528,6 @@ switch (value) {
       GENoutput->Fill();
 
       break;
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
